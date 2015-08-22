@@ -1,0 +1,14 @@
+8
+a
+b
+c
+d
+e
+x
+y
+z
+a
+a b c x 
+b d 
+c e 
+x y z 
