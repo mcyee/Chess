@@ -6,7 +6,7 @@
 #include <fstream>
 #include <string>
 
-struct Controller {
+class Controller {
 	int numNodes;
 	Tree *root;
 	std::map<std::string, Tree *> nodeList;
