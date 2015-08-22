@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 	k.buildList(f);
 	//k.printNodes();
 //	k.buildTree();
-	k.printTree();
+//	k.printTree();
 	k.traverse();
 	string ofile = argv[2];
 	k.save(ofile);
