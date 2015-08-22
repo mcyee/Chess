@@ -98,12 +98,20 @@ void Controller::traverse() {
 			string newDescription;
 			cin >> newDescription;
 			current->setDescription(newDescription);
+		} else if(action == 'c') {
+			vector<Tree *>::iterator i;
+			Tree *current = position.top();
+			for(i = current->children.begin(); i != current->children.end(); i++) {
+				cout << (*i)->getName() << " ";
+			}
+			cout << endl;
 		} else if(action == 'h') {
 			cout << "a = append a description on the current node." << endl;
 			cout << "r = replace a description on the current node." << endl;
 			cout << "j = jump to a node that is a child." << endl;
 			cout << "d = view the description on the current node" << endl;
 			cout << "b = go back to the parent node." << endl;
+			cout << "c = display the \"name's\" of all children." << endl;
 		}
 	}
 }
