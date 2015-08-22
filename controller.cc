@@ -81,9 +81,13 @@ void Controller::traverse() {
 			}
 			position.push(nextStep);
 		} else if(action == 'b') {
-			position.pop();
-			Tree *current = position.top();
-			cout << "now at node: " << current->getName() << endl;
+			if(position.top() == root) {
+				cout << "Already at root node." << endl;
+			} else {
+				position.pop();
+				Tree *current = position.top();
+				cout << "now at node: " << current->getName() << endl;
+			}
 		} else if(action == 'd') {
 			Tree *current = position.top();
 			cout << current->getDescription() << endl;
