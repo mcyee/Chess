@@ -30,6 +30,10 @@ string Tree::getDescription(void) {
 	return description;
 }
 
+void Tree::setDescription(string s) {
+	description = s;
+}
+
 Tree::~Tree() {
 	vector<Tree *>::iterator i;
 	for(i = children.begin(); i != children.end(); i++) {

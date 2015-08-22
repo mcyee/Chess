@@ -62,10 +62,13 @@ void Controller::printTree() {
 }
 
 void Controller::traverse() {
+	cout << "This is the opening book tool." << endl;
+	cout << "Type in \"h\" to see command options." << endl;
 	stack<Tree *> position;
 	position.push(root);
 	char action = '0';
 	while(action != 'q') {
+		cout << "~> ";
 		cin >> action;
 		if(action == 'j') {
 			string next;
@@ -84,6 +87,23 @@ void Controller::traverse() {
 		} else if(action == 'd') {
 			Tree *current = position.top();
 			cout << current->getDescription() << endl;
+		} else if(action == 'a') {
+			Tree *current = position.top();
+			string newDescription;
+			cin >> newDescription;
+			newDescription = current->getDescription() + newDescription;
+			current->setDescription(newDescription);
+		} else if(action == 'r') {
+			Tree *current = position.top();
+			string newDescription;
+			cin >> newDescription;
+			current->setDescription(newDescription);
+		} else if(action == 'h') {
+			cout << "a = append a description on the current node." << endl;
+			cout << "r = replace a description on the current node." << endl;
+			cout << "j = jump to a node that is a child." << endl;
+			cout << "d = view the description on the current node" << endl;
+			cout << "b = go back to the parent node." << endl;
 		}
 	}
 }
