@@ -1,7 +1,7 @@
 #include "tree.h"
 using namespace std;
 
-Tree::Tree(string name): name(name) {}
+Tree::Tree(string name, string description): name(name), description(description) {}
 
 Tree *Tree::step(string next) {
 	vector<Tree *>::iterator i;
@@ -24,6 +24,10 @@ void Tree::addChild(Tree *t) {
 
 string Tree::getName(void) {
 	return name;
+}
+
+string Tree::getDescription(void) {
+	return description;
 }
 
 Tree::~Tree() {

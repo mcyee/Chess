@@ -1,14 +1,10 @@
-8
+5
+a startSymbol
+b probably_E4
+c probably_D4
+d probably_E5
+e probably_D5
 a
-b
-c
-d
-e
-x
-y
-z
-a
-a b c x 
+a b c 
 b d 
 c e 
-x y z 

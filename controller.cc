@@ -7,12 +7,14 @@ using namespace std;
 
 void Controller::buildList(fstream &f) {
 	string nodeName;
+	string nodeDescription;
 	f >> numNodes;
 	for(int i = 0; i < numNodes; i++) {
-		f >> nodeName;
-		Tree *addme = new Tree(nodeName);
+		f >> nodeName >> nodeDescription;
+		Tree *addme = new Tree(nodeName, nodeDescription);
 		nodeList[nodeName] = addme;
 	}
+
 	string myRoot;
 	f >> myRoot;
 	root = nodeList[myRoot];
@@ -79,7 +81,10 @@ void Controller::traverse() {
 			position.pop();
 			Tree *current = position.top();
 			cout << "now at node: " << current->getName() << endl;
-		} 
+		} else if(action == 'd') {
+			Tree *current = position.top();
+			cout << current->getDescription() << endl;
+		}
 	}
 }
 
@@ -89,7 +94,7 @@ void Controller::save(string file) {
 	k << numNodes << endl;
 	map<string , Tree *>::iterator ii;
 	for(ii = nodeList.begin(); ii != nodeList.end(); ii++) {
-		k << ii->first << endl;
+		k << ii->second->getName() << " " << ii->second->getDescription() << endl;
 	}
 	stack<Tree *> myStack;
 	myStack.push(root);
