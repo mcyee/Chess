@@ -3,8 +3,8 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-	if (argc > 4) {
-		cout << "Huh!?" << endl;
+	if (argc != 3) {
+		cout << "Improper number of arguments." << endl;
 	}
 	Controller k;
 	fstream f;
@@ -14,8 +14,8 @@ int main(int argc, char *argv[]) {
 	//k.printNodes();
 //	k.buildTree();
 //	k.printTree();
-	k.traverse();
+	
 	string ofile = argv[2];
-	k.save(ofile);
+	k.traverse(ofile);
 	return 0;
 }

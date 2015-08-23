@@ -61,7 +61,8 @@ void Controller::printTree() {
 	root->printTree();
 }
 
-void Controller::traverse() {
+void Controller::traverse(string file) {
+	bool saved = true;
 	cout << "This is the opening book tool." << endl;
 	cout << "Type in \"h\" to see command options." << endl;
 	stack<Tree *> position;
@@ -78,6 +79,7 @@ void Controller::traverse() {
 			if(nodeList[next] == NULL) {
 				nodeList[next] = nextStep;
 				numNodes++;
+				saved = false;
 			}
 			position.push(nextStep);
 		} else if(action == 'b') {
@@ -109,6 +111,22 @@ void Controller::traverse() {
 				cout << (*i)->getName() << " ";
 			}
 			cout << endl;
+		} else if(action == 's') {
+			cout << "Saved changes into: " << file << endl;
+			save(file);
+			saved = true;
+		} else if(action == 'q') {
+			if (!saved) {
+				cout << "There are unsaved changes. Are you sure you want to quit without saving? (y/n)" << endl;
+				cout << "~> ";
+				char ans = 'n';
+				cin >> ans;
+				if(ans == 'y') {
+					return;
+				} else {
+				   action = 'n';
+				}	   
+			}
 		} else if(action == 'h') {
 			cout << "a = append a description on the current node." << endl;
 			cout << "r = replace a description on the current node." << endl;
@@ -116,6 +134,7 @@ void Controller::traverse() {
 			cout << "d = view the description on the current node" << endl;
 			cout << "b = go back to the parent node." << endl;
 			cout << "c = display the \"name's\" of all children." << endl;
+			cout << "s = save the current changes." << endl;
 		}
 	}
 }

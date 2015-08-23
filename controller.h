@@ -15,7 +15,7 @@ public:
 //	void buildTree();
 	void printTree();
 	void printNodes();
-	void traverse();
+	void traverse(std::string);
 	void save(std::string);
 	~Controller();
 };
