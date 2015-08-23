@@ -5,12 +5,15 @@
 
 using namespace std;
 
+
+
 void Controller::buildList(fstream &f) {
 	string nodeName;
 	string nodeDescription;
 	f >> numNodes;
 	for(int i = 0; i < numNodes; i++) {
-		f >> nodeName >> nodeDescription;
+		f >> nodeName;
+		nodeDescription = inputDescription(f);
 		Tree *addme = new Tree(nodeName, nodeDescription);
 		nodeList[nodeName] = addme;
 	}
@@ -18,7 +21,6 @@ void Controller::buildList(fstream &f) {
 	string myRoot;
 	f >> myRoot;
 	root = nodeList[myRoot];
-	// Now we build the tree.
 	stack<Tree *> myStack;
 	string production;
 	string token;
@@ -61,7 +63,54 @@ void Controller::printTree() {
 	root->printTree();
 }
 
+string Controller::inputDescription(fstream &f) {
+	string desc;
+	string input;
+	getline(f, input);
+	int i = 0;
+	while(input[i] != '"') {
+		i++;
+	}
+	i++;
+	int start = i;
+	int j = 0;
+	while(input[i] != '"') {
+		i++;
+		j++;
+	}
+	desc = input.substr(start, j);
+	return desc;
+}
+
+string Controller::inputDescription() {
+	string desc;
+	string input;
+	getline(cin, input);
+	int i = 0;
+	while(input[i] != '"') {
+		i++;
+	}
+	i++;
+	int start = i;
+	int j = 0;
+	while(input[i] != '"') {
+		i++;
+		j++;
+	}
+	desc = input.substr(start, j);
+	return desc;
+}
+
+void Controller::switchPlayer(void) {
+	if(player == "black") {
+		player = "white";
+	} else {
+		player = "black";
+	}
+}
+
 void Controller::traverse(string file) {
+	player = "black";
 	bool saved = true;
 	cout << "This is the opening book tool." << endl;
 	cout << "Type in \"h\" to see command options." << endl;
@@ -72,6 +121,7 @@ void Controller::traverse(string file) {
 		cout << "~> ";
 		cin >> action;
 		if(action == 'j') {
+			switchPlayer();
 			string next;
 			cin >> next;
 			Tree *current = position.top();
@@ -82,26 +132,27 @@ void Controller::traverse(string file) {
 				saved = false;
 			}
 			position.push(nextStep);
+			cout << player << " plays " << nextStep->getName() << endl;
 		} else if(action == 'b') {
 			if(position.top() == root) {
 				cout << "Already at root node." << endl;
 			} else {
+				switchPlayer();
 				position.pop();
 				Tree *current = position.top();
-				cout << "now at node: " << current->getName() << endl;
+				cout << player << " plays " << current->getName() << endl;
 			}
 		} else if(action == 'd') {
 			Tree *current = position.top();
 			cout << current->getDescription() << endl;
 		} else if(action == 'a') {
 			Tree *current = position.top();
-			string newDescription;
-			cin >> newDescription;
+			string newDescription = inputDescription();
 			newDescription = current->getDescription() + newDescription;
 			current->setDescription(newDescription);
 		} else if(action == 'r') {
 			Tree *current = position.top();
-			string newDescription;
+			string newDescription = inputDescription();
 			cin >> newDescription;
 			current->setDescription(newDescription);
 		} else if(action == 'c') {
@@ -138,7 +189,7 @@ void Controller::traverse(string file) {
 			cout << "j = jump to a node that is a child." << endl;
 			cout << "d = view the description on the current node" << endl;
 			cout << "b = go back to the parent node." << endl;
-			cout << "c = display the \"name's\" of all children." << endl;
+			cout << "c = display the \"names\" of all children." << endl;
 			cout << "s = save the current changes." << endl;
 		}
 	}
@@ -150,7 +201,7 @@ void Controller::save(string file) {
 	k << numNodes << endl;
 	map<string , Tree *>::iterator ii;
 	for(ii = nodeList.begin(); ii != nodeList.end(); ii++) {
-		k << ii->second->getName() << " " << ii->second->getDescription() << endl;
+		k << ii->second->getName() << " \"" << ii->second->getDescription() << "\"" << endl;
 	}
 	stack<Tree *> myStack;
 	myStack.push(root);

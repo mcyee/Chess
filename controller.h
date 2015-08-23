@@ -8,11 +8,14 @@
 
 class Controller {
 	int numNodes;
+	std::string player;
 	Tree *root;
 	std::map<std::string, Tree *> nodeList;
+	std::string inputDescription();
+	std::string inputDescription(std::fstream &);
+	void switchPlayer(void);
 public: 
 	void buildList(std::fstream &);
-//	void buildTree();
 	void printTree();
 	void printNodes();
 	void traverse(std::string);

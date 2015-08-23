@@ -7,11 +7,11 @@ Tree *Tree::step(string next) {
 	vector<Tree *>::iterator i;
 	for(i = children.begin(); i != children.end(); i++) {
 		if ((*i)->getName() == next) {
-			cout << "moving to: " << next << endl;
+//			cout << "moving to: " << next << endl;
 			return *i;
 		}
 	}
-	cout << "adding child: " << next << " to: " << name << endl;
+	cout << "added new move." << endl;
 	Tree *addMe = new Tree(next);
 	children.push_back(addMe);
 	return addMe;

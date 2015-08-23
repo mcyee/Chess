@@ -28,10 +28,6 @@ int main(int argc, char *argv[]) {
 	fstream f;
 	f.open(file.c_str());
 	k.buildList(f);
-	//k.printNodes();
-//	k.buildTree();
-//	k.printTree();
-	
 	k.traverse(ofile);
 	return 0;
 }
