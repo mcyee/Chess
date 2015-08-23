@@ -5,8 +5,6 @@
 
 using namespace std;
 
-
-
 void Controller::buildList(fstream &f) {
 	string nodeName;
 	string nodeDescription;
@@ -140,7 +138,11 @@ void Controller::traverse(string file) {
 				switchPlayer();
 				position.pop();
 				Tree *current = position.top();
-				cout << player << " plays " << current->getName() << endl;
+				if (current != root) {
+					cout << player << " plays " << current->getName() << endl;
+				} else {
+					cout << "At beginning of game." << endl;
+				}
 			}
 		} else if(action == 'd') {
 			Tree *current = position.top();
