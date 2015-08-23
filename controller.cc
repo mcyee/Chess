@@ -112,8 +112,13 @@ void Controller::traverse(string file) {
 			}
 			cout << endl;
 		} else if(action == 's') {
-			cout << "Saved changes into: " << file << endl;
-			save(file);
+			cout << "This option cannot be undone. Are you sure you want to save?" << endl;
+			char ans = 'n';
+			cin >> ans;
+			if(ans == 'y') {
+				cout << "Saved changes into: " << file << endl;
+				save(file);
+			}
 			saved = true;
 		} else if(action == 'q') {
 			if (!saved) {
