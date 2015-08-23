@@ -3,19 +3,35 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-	if (argc != 3) {
-		cout << "Improper number of arguments." << endl;
+	string ofile;
+	string file;
+	if (argc == 1) {
+		cout << "Improper number of arguments. At least one file must be specified." << endl;
+		return 0;
 	}
+	if (argc == 2) {
+		cout << "Defaulting source file to save file." << endl;
+		file = argv[1];
+		ofile = argv[1];
+	} 
+	if(argc == 3) {
+		file = argv[1];
+		ofile = argv[2];
+	}
+	if(argc > 3) {
+		cout << "Improper number of arguments! Exiting." << endl;
+		return 0;
+	}
+
+
 	Controller k;
 	fstream f;
-	string file = argv[1];
 	f.open(file.c_str());
 	k.buildList(f);
 	//k.printNodes();
 //	k.buildTree();
 //	k.printTree();
 	
-	string ofile = argv[2];
 	k.traverse(ofile);
 	return 0;
 }
