@@ -110,7 +110,7 @@ void Controller::switchPlayer(void) {
 void Controller::traverse(string file) {
 	player = "black";
 	bool saved = true;
-	cout << "This is the opening book tool." << endl;
+	cout << "This is the chess opening book tool." << endl;
 	cout << "Type in \"h\" to see command options." << endl;
 	stack<Tree *> position;
 	position.push(root);

@@ -6,11 +6,11 @@
 #include <iostream>
 
 struct Tree {
-	std::string name;
+	std::string id;
 	std::string description;
 	std::vector<Tree *> children;
 public:
-	Tree(std::string name, std::string description="");
+	Tree(std::string id, std::string description="");
 	void addChild(Tree *);
 	std::string getName(void);
 	std::string getDescription(void);

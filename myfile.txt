@@ -1,8 +1,10 @@
-4
+5
 d4 "The other most popular first move"
+d5 ""
 e4 "The most popular opening"
 e5 "Black's standard response."
 start "just the start symbol"
 start
 start e4 d4 
 e4 e5 
+d4 d5 
