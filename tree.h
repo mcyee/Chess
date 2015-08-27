@@ -11,6 +11,7 @@ struct Tree {
 	std::vector<Tree *> children;
 public:
 	Tree(std::string id, std::string description="");
+	bool isChild(Tree *);
 	void addChild(Tree *);
 	std::string getName(void);
 	std::string getDescription(void);

@@ -23,6 +23,16 @@ void Tree::addChild(Tree *t) {
 	children.push_back(t);
 }
 
+bool Tree::isChild(Tree *t) {
+	vector<Tree *>::iterator i;
+	for(i = children.begin(); i != children.end(); i++) {
+		if(*i == t) {
+			return true;
+		} 
+	}
+	return false;
+}
+
 string Tree::getName(void) {
 	int i = 0;
 	int len = id.length();
