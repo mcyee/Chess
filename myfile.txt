@@ -1,8 +1,12 @@
-8
+12
+Bb5 "The Roy Lupez. This is a more aggressive opening for white but also allows white to castle very early."
+Nc6 ""
+Nf3 ""
 c4 "The Queen's gambit. Generally leads to sharper lines of play."
 c5 "The Sicilian Defense"
 d4 "The other most popular first move"
 d5 ""
+dxc4 "The Queen's gambit Accepted variation. Black allows White to control the center in exhange for the pawn, but Black will likely end up losing the pawn to the bishop anyways, and defending it will likely prove hazardous."
 e4 "The most popular opening"
 e5 "Black's standard response."
 f4 "The King's gambit. A pretty deprecated opening, rarely used because it is assumed to open up the Kingside too much"
@@ -10,6 +14,9 @@ start "just the start symbol"
 start
 start e4 d4 
 e4 e5 c5 
-e5 f4 
+e5 f4 Nf3 
+Nf3 Nc6 
+Nc6 Bb5 
 d4 d5 
 d5 c4 
+c4 dxc4 

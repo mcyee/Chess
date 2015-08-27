@@ -177,6 +177,8 @@ void Controller::traverse() {
 					} else {
 				   		// Do nothing;
 					}	   
+				} else {
+					return;
 				}
 				break;
 			case 'h':
@@ -193,7 +195,7 @@ void Controller::traverse() {
 				break;
 			
 		} 
-	} while (action != 'q');
+	} while (true);
 }
 
 void Controller::save() {
