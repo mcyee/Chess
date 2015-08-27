@@ -117,86 +117,98 @@ void Controller::traverse() {
 	stack<Tree *> position;
 	position.push(root);
 	char action = '0';
-	while(action != 'q') {
+	Tree *current = position.top();
+	string next;
+	Tree *nextStep;
+	char ans = 'n';
+	string newDescription;
+	vector<Tree *>::iterator i;
+	do {
+		current = position.top();
 		cout << "~> ";
 		cin >> action;
-		if(action == 'j') {
-			switchPlayer();
-			string next;
-			cin >> next;
-			Tree *current = position.top();
-			Tree *nextStep = current->step(next);
-			if(nodeList[next] == NULL) {
-				nodeList[next] = nextStep;
-				numNodes++;
-				saved = false;
-			}
-			position.push(nextStep);
-			cout << player << " plays " << nextStep->getName() << endl;
-		} else if(action == 'b') {
-			if(position.top() == root) {
-				cout << "Already at root node." << endl;
-			} else {
+		switch(action) {
+			case 'j':
 				switchPlayer();
-				position.pop();
-				Tree *current = position.top();
-				if (current != root) {
-					cout << player << " plays " << current->getName() << endl;
-				} else {
-					cout << "At beginning of game." << endl;
+				cin >> next;
+				nextStep = current->step(next);
+				if(nodeList[next] == NULL) {
+					nodeList[next] = nextStep;
+					numNodes++;
+					saved = false;
 				}
-			}
-		} else if(action == 'd') {
-			Tree *current = position.top();
-			cout << current->getDescription() << endl;
-		} else if(action == 'a') {
-			Tree *current = position.top();
-			string newDescription = inputDescription2();
-			newDescription = current->getDescription() + newDescription;
-			current->setDescription(newDescription);
-		} else if(action == 'r') {
-			Tree *current = position.top();
-			string newDescription = inputDescription2();
-			cin >> newDescription;
-			current->setDescription(newDescription);
-		} else if(action == 'c') {
-			vector<Tree *>::iterator i;
-			Tree *current = position.top();
-			for(i = current->children.begin(); i != current->children.end(); i++) {
-				cout << (*i)->getName() << " ";
-			}
-			cout << endl;
-		} else if(action == 's') {
-			cout << "This option cannot be undone. Are you sure you want to save?" << endl;
-			char ans = 'n';
-			cin >> ans;
-			if(ans == 'y') {
-				cout << "Saved changes." << endl;
-				save();
-			}
-			saved = true;
-		} else if(action == 'q') {
-			if (!saved) {
-				cout << "There are unsaved changes. Are you sure you want to quit without saving? (y/n)" << endl;
-				cout << "~> ";
-				char ans = 'n';
+				position.push(nextStep);
+				cout << player << " plays " << nextStep->getName() << endl;
+				break;
+			case 'b':
+				if(current == root) {
+					cout << "Already at root node." << endl;
+				} else {
+					switchPlayer();
+					position.pop();
+					current = position.top();
+					if (current != root) {
+						cout << player << " plays " << current->getName() << endl;
+					} else {
+						cout << "At beginning of game." << endl;
+					}
+				}	
+				break;
+			case 'd':
+				cout << current->getDescription() << endl;
+				break;
+			case 'a':
+				newDescription = inputDescription2();
+				newDescription = current->getDescription() + newDescription;
+				current->setDescription(newDescription);
+				break;
+			case 'r':
+				newDescription = inputDescription2();
+				cin >> newDescription;
+				current->setDescription(newDescription);
+				break;
+			case 'c':
+				for(i = current->children.begin(); i != current->children.end(); i++) {
+					cout << (*i)->getName() << " ";
+				}
+				cout << endl;
+				break;
+			case 's':
+				cout << "This option cannot be undone. Are you sure you want to save?" << endl;
 				cin >> ans;
 				if(ans == 'y') {
-					return;
-				} else {
-				   action = 'n';
-				}	   
-			}
-		} else if(action == 'h') {
-			cout << "a = append a description on the current node." << endl;
-			cout << "r = replace a description on the current node." << endl;
-			cout << "j = jump to a node that is a child." << endl;
-			cout << "d = view the description on the current node" << endl;
-			cout << "b = go back to the parent node." << endl;
-			cout << "c = display the \"names\" of all children." << endl;
-			cout << "s = save the current changes." << endl;
-		}
-	}
+					cout << "Saved changes." << endl;
+					save();
+				}
+				saved = true;
+				break;
+			case 'q':
+				if (!saved) {
+					cout << "There are unsaved changes. Are you sure you want to quit without saving? (y/n)" << endl;
+					cout << "~> ";
+					cin >> ans;
+					if(ans == 'y') {
+						return;
+					} else {
+				   		// Do nothing;
+					}	   
+				}
+				break;
+			case 'h':
+				cout << "a = append a description on the current node." << endl;
+				cout << "r = replace a description on the current node." << endl;
+				cout << "j = jump to a node that is a child." << endl;
+				cout << "d = view the description on the current node" << endl;
+				cout << "b = go back to the parent node." << endl;
+				cout << "c = display the \"names\" of all children." << endl;
+				cout << "s = save the current changes." << endl;
+				break;
+			default:
+				cout << "Command not recognized. Type 'h' to see a list of possible commands." << endl;
+				break;
+			
+		} 
+	} while (action != 'q');
 }
 
 void Controller::save() {
