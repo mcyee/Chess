@@ -13,7 +13,7 @@ void Controller::buildList() {
 	read >> numNodes;
 	for(int i = 0; i < numNodes; i++) {
 		read >> nodeName;
-		nodeDescription = inputDescription();
+		nodeDescription = inputDescription(true);
 		Tree *addme = new Tree(nodeName, nodeDescription);
 		nodeList[nodeName] = addme;
 	}
@@ -63,29 +63,14 @@ void Controller::printTree() {
 	root->printTree();
 }
 
-string Controller::inputDescription() {
+string Controller::inputDescription(bool fromFile) {
 	string desc;
 	string input;
-	getline(read, input);
-	int i = 0;
-	while(input[i] != '"') {
-		i++;
+	if(fromFile) {
+		getline(read, input);
+	} else {
+		getline(cin, input);
 	}
-	i++;
-	int start = i;
-	int j = 0;
-	while(input[i] != '"') {
-		i++;
-		j++;
-	}
-	desc = input.substr(start, j);
-	return desc;
-}
-
-string Controller::inputDescription2() {
-	string desc;
-	string input;
-	getline(cin, input);
 	int i = 0;
 	while(input[i] != '"') {
 		i++;
@@ -158,12 +143,12 @@ void Controller::traverse() {
 				cout << current->getDescription() << endl;
 				break;
 			case 'a':
-				newDescription = inputDescription2();
+				newDescription = inputDescription(false);
 				newDescription = current->getDescription() + newDescription;
 				current->setDescription(newDescription);
 				break;
 			case 'r':
-				newDescription = inputDescription2();
+				newDescription = inputDescription(false);
 				cin >> newDescription;
 				current->setDescription(newDescription);
 				break;

@@ -13,8 +13,7 @@ class Controller {
 	std::string player;
 	Tree *root;
 	std::map<std::string, Tree *> nodeList;
-	std::string inputDescription();
-	std::string inputDescription2();
+	std::string inputDescription(bool);
 	void switchPlayer();
 public: 
 	void buildList();
