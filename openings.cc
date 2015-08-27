@@ -24,10 +24,12 @@ int main(int argc, char *argv[]) {
 	}
 
 
-	Controller k;
 	fstream f;
+	fstream g;
 	f.open(file.c_str());
-	k.buildList(f);
-	k.traverse(ofile);
+	g.open(ofile.c_str());
+	Controller k(f, g);
+	k.buildList();
+	k.traverse();
 	return 0;
 }

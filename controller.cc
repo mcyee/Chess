@@ -5,27 +5,29 @@
 
 using namespace std;
 
-void Controller::buildList(fstream &f) {
+Controller::Controller(fstream &read, fstream &write): read(read), write(write) {}
+
+void Controller::buildList() {
 	string nodeName;
 	string nodeDescription;
-	f >> numNodes;
+	read >> numNodes;
 	for(int i = 0; i < numNodes; i++) {
-		f >> nodeName;
-		nodeDescription = inputDescription(f);
+		read >> nodeName;
+		nodeDescription = inputDescription();
 		Tree *addme = new Tree(nodeName, nodeDescription);
 		nodeList[nodeName] = addme;
 	}
 
 	string myRoot;
-	f >> myRoot;
+	read >> myRoot;
 	root = nodeList[myRoot];
 	stack<Tree *> myStack;
 	string production;
 	string token;
 	string theRoot;
 	myStack.push(root);
-	getline(f, production);
-	while(getline(f, production)) {
+	getline(read, production);
+	while(getline(read, production)) {
 		stringstream ss(production);
 		vector<Tree *> myVec;
 		ss >> theRoot;
@@ -61,10 +63,10 @@ void Controller::printTree() {
 	root->printTree();
 }
 
-string Controller::inputDescription(fstream &f) {
+string Controller::inputDescription() {
 	string desc;
 	string input;
-	getline(f, input);
+	getline(read, input);
 	int i = 0;
 	while(input[i] != '"') {
 		i++;
@@ -80,7 +82,7 @@ string Controller::inputDescription(fstream &f) {
 	return desc;
 }
 
-string Controller::inputDescription() {
+string Controller::inputDescription2() {
 	string desc;
 	string input;
 	getline(cin, input);
@@ -107,7 +109,7 @@ void Controller::switchPlayer(void) {
 	}
 }
 
-void Controller::traverse(string file) {
+void Controller::traverse() {
 	player = "black";
 	bool saved = true;
 	cout << "This is the chess opening book tool." << endl;
@@ -149,12 +151,12 @@ void Controller::traverse(string file) {
 			cout << current->getDescription() << endl;
 		} else if(action == 'a') {
 			Tree *current = position.top();
-			string newDescription = inputDescription();
+			string newDescription = inputDescription2();
 			newDescription = current->getDescription() + newDescription;
 			current->setDescription(newDescription);
 		} else if(action == 'r') {
 			Tree *current = position.top();
-			string newDescription = inputDescription();
+			string newDescription = inputDescription2();
 			cin >> newDescription;
 			current->setDescription(newDescription);
 		} else if(action == 'c') {
@@ -169,8 +171,8 @@ void Controller::traverse(string file) {
 			char ans = 'n';
 			cin >> ans;
 			if(ans == 'y') {
-				cout << "Saved changes into: " << file << endl;
-				save(file);
+				cout << "Saved changes." << endl;
+				save();
 			}
 			saved = true;
 		} else if(action == 'q') {
@@ -197,29 +199,27 @@ void Controller::traverse(string file) {
 	}
 }
 
-void Controller::save(string file) {
-	ofstream k;
-	k.open(file.c_str());
-	k << numNodes << endl;
+void Controller::save() {
+	write << numNodes << endl;
 	map<string , Tree *>::iterator ii;
 	for(ii = nodeList.begin(); ii != nodeList.end(); ii++) {
-		k << ii->second->getName() << " \"" << ii->second->getDescription() << "\"" << endl;
+		write << ii->second->getName() << " \"" << ii->second->getDescription() << "\"" << endl;
 	}
 	stack<Tree *> myStack;
 	myStack.push(root);
 	Tree *current;
 	vector<Tree *>::iterator i;
 	vector<Tree *>::reverse_iterator j;
-	k << root->getName() << endl;
+	write << root->getName() << endl;
 	while(!myStack.empty()) {
 		current = myStack.top();
 		myStack.pop();
 		if(current->children.size() > 0) {
-			k << current->getName() << " ";
+			write << current->getName() << " ";
 			for(i = current->children.begin(); i != current->children.end(); i++) {
-				k << (*i)->getName() << " ";
+				write << (*i)->getName() << " ";
 			}
-			k << endl;
+			write << endl;
 			for(j = current->children.rbegin(); j != current->children.rend(); j++) {
 				myStack.push(*j);
 			}
@@ -227,7 +227,7 @@ void Controller::save(string file) {
 			// Do nothing, since it's a terminal. 
 		}		
 	}
-	k.close();
+	write.close();
 }
 
 Controller::~Controller() {

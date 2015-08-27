@@ -1,10 +1,15 @@
-5
+8
+c4 "The Queen's gambit. Generally leads to sharper lines of play."
+c5 "The Sicilian Defense"
 d4 "The other most popular first move"
 d5 ""
 e4 "The most popular opening"
 e5 "Black's standard response."
+f4 "The King's gambit. A pretty deprecated opening, rarely used because it is assumed to open up the Kingside too much"
 start "just the start symbol"
 start
 start e4 d4 
-e4 e5 
+e4 e5 c5 
+e5 f4 
 d4 d5 
+d5 c4 
