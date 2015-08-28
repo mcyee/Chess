@@ -169,7 +169,7 @@ void Controller::traverse() {
 				cout << endl;
 				break;
 			case 's':
-				cout << "This option cannot be undone. Are you sure you want to save?" << endl;
+				cout << "This option cannot be undone. Are you sure you want to save? (y/n): ";
 				cin >> ans;
 				if(ans == 'y') {
 					cout << "Saved changes." << endl;
@@ -180,8 +180,7 @@ void Controller::traverse() {
 				break;
 			case 'q':
 				if (!saved) {
-					cout << "There are unsaved changes. Are you sure you want to quit without saving? (y/n)" << endl;
-					cout << "~> ";
+					cout << "There are unsaved changes. Are you sure you want to quit without saving? (y/n): ";
 					cin >> ans;
 					if(ans == 'y') {
 						return;
@@ -213,13 +212,11 @@ void Controller::traverse() {
 void Controller::save() {
 	write << numNodes << endl;
 	vector<Tree * >::iterator ii;
-	cout << "Trying to save." << endl;
 	for(ii = nodeList.begin(); ii != nodeList.end(); ii++) {
 		//cout << ii->second->getName() << endl;
 		//cout << ii->second->getDescription() << endl;
 		write << (*ii)->getName() << " \"" << (*ii)->getDescription() << "\"" << endl;
 	}
-	cout << "Saved the node names" << endl;
 	stack<Tree *> myStack;
 	myStack.push(root);
 	Tree *current;
