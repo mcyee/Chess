@@ -18,7 +18,6 @@ public:
 	int getId(void);
 	std::string getDescription(void);
 	void setDescription(std::string);
-	Tree *step(std::string);
 	~Tree();
 	void printTree();
 };
