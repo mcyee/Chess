@@ -1,8 +1,8 @@
 #include "tree.h"
 using namespace std;
 
-Tree::Tree(string id, string description): 
-	id(id), description(description) {}
+Tree::Tree(int id, string move, string description): 
+	id(id), move(move), description(description) {}
 
 Tree *Tree::step(string next) {
 	vector<Tree *>::iterator i;
@@ -13,7 +13,7 @@ Tree *Tree::step(string next) {
 		}
 	}
 	cout << "added new move." << endl;
-	Tree *addMe = new Tree(next);
+	Tree *addMe = new Tree(3,"3", "3");  // This function should not exist when we're done~
 	children.push_back(addMe);
 	return addMe;
 }
@@ -23,24 +23,22 @@ void Tree::addChild(Tree *t) {
 	children.push_back(t);
 }
 
-bool Tree::isChild(Tree *t) {
+int Tree::getId(void) {
+	return id;
+}
+
+Tree *Tree::isChild(std::string s) {
 	vector<Tree *>::iterator i;
 	for(i = children.begin(); i != children.end(); i++) {
-		if(*i == t) {
-			return true;
+		if((*i)->getName() == s) {
+			return (*i);
 		} 
 	}
-	return false;
+	return NULL;
 }
 
 string Tree::getName(void) {
-	int i = 0;
-	int len = id.length();
-	while(id[i] != '-' && i < len) {
-		i++;
-	}
-	string retme = id.substr(0, i);
-	return retme;
+	return move;
 }
 
 string Tree::getDescription(void) {

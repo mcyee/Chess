@@ -2,6 +2,7 @@
 #include <stack>
 #include <sstream>
 #include <fstream>
+#include <time.h>
 
 using namespace std;
 
@@ -12,22 +13,24 @@ void Controller::buildList() {
 	string nodeDescription;
 	read >> numNodes;
 	for(int i = 0; i < numNodes; i++) {
-		read >> nodeName;
+		read >> nodeName;	
 		nodeDescription = inputDescription(true);
-		Tree *addme = new Tree(nodeName, nodeDescription);
-		nodeList[nodeName] = addme;
+		Tree *addme = new Tree(i, nodeName, nodeDescription);
+		nodeList.push_back(addme);
 	}
-
-	string myRoot;
-	read >> myRoot;
-	root = nodeList[myRoot];
+	
+	root = nodeList[0]; // Go with the convention that the first node listed is the root.
+	// For the productions, we'll just use the id's instead of the moves. That way 
+	// Everything is unique.  
 	stack<Tree *> myStack;
 	string production;
-	string token;
-	string theRoot;
+	int token;
+	int theRoot;
 	myStack.push(root);
-	getline(read, production);
+//	getline(read, production);
+//	cout << production << endl;
 	while(getline(read, production)) {
+//		cout << production << endl;
 		stringstream ss(production);
 		vector<Tree *> myVec;
 		ss >> theRoot;
@@ -35,7 +38,7 @@ void Controller::buildList() {
 			myVec.push_back(nodeList[token]);
 		}
 		Tree *currentRoot = myStack.top();
-		while(currentRoot->getName() != theRoot) {
+		while(currentRoot->getId() != theRoot) {  // In case a node is a leaf. 
 			myStack.pop();
 			currentRoot = myStack.top();
 		}
@@ -52,10 +55,12 @@ void Controller::buildList() {
 }
 
 void Controller::printNodes() {
+	cout << "PRINTING NODES" << endl;
+	cout << root << endl;
 	cout << root->getName() << " is the root." << endl;
-	map<string, Tree *>::iterator i;
+	vector<Tree *>::iterator i;
 	for(i = nodeList.begin(); i != nodeList.end(); i++) {
-		cout << (*i).first << " " << (*i).second << endl;
+		cout <<  (*i)->getId() << " " << (*i)->getName() << endl;
 	}
 }
 
@@ -108,6 +113,7 @@ void Controller::traverse() {
 	char ans = 'n';
 	string newDescription;
 	vector<Tree *>::iterator i;
+	Tree *addme;
 	do {
 		current = position.top();
 		cout << "~> ";
@@ -116,11 +122,15 @@ void Controller::traverse() {
 			case 'j':
 				switchPlayer();
 				cin >> next;
-				nextStep = current->step(next);
-				if(nodeList[next] == NULL) {
-					nodeList[next] = nextStep;
+				if(current->isChild(next) == NULL) {
+					addme = new Tree(numNodes, next);
+					current->addChild(addme);
+					nodeList.push_back(addme);
 					numNodes++;
 					saved = false;
+					nextStep = addme;
+				} else {
+					nextStep = current->isChild(next);
 				}
 				position.push(nextStep);
 				cout << player << " plays " << nextStep->getName() << endl;
@@ -163,6 +173,7 @@ void Controller::traverse() {
 				cin >> ans;
 				if(ans == 'y') {
 					cout << "Saved changes." << endl;
+					//printNodes();
 					save();
 				}
 				saved = true;
@@ -198,25 +209,30 @@ void Controller::traverse() {
 	} while (true);
 }
 
+
 void Controller::save() {
 	write << numNodes << endl;
-	map<string , Tree *>::iterator ii;
+	vector<Tree * >::iterator ii;
+	cout << "Trying to save." << endl;
 	for(ii = nodeList.begin(); ii != nodeList.end(); ii++) {
-		write << ii->second->getName() << " \"" << ii->second->getDescription() << "\"" << endl;
+		//cout << ii->second->getName() << endl;
+		//cout << ii->second->getDescription() << endl;
+		write << (*ii)->getName() << " \"" << (*ii)->getDescription() << "\"" << endl;
 	}
+	cout << "Saved the node names" << endl;
 	stack<Tree *> myStack;
 	myStack.push(root);
 	Tree *current;
 	vector<Tree *>::iterator i;
 	vector<Tree *>::reverse_iterator j;
-	write << root->getName() << endl;
+	//write << root->getId() << endl; 		Since we assume the root to be the first node listed. 
 	while(!myStack.empty()) {
 		current = myStack.top();
 		myStack.pop();
 		if(current->children.size() > 0) {
-			write << current->getName() << " ";
+			write << current->getId() << " ";
 			for(i = current->children.begin(); i != current->children.end(); i++) {
-				write << (*i)->getName() << " ";
+				write << (*i)->getId() << " ";
 			}
 			write << endl;
 			for(j = current->children.rbegin(); j != current->children.rend(); j++) {

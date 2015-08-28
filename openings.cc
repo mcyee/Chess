@@ -29,7 +29,10 @@ int main(int argc, char *argv[]) {
 	f.open(file.c_str());
 	g.open(ofile.c_str());
 	Controller k(f, g);
+	//cout << "Part 1" << endl;
 	k.buildList();
+	cout << "Part 2" << endl;
 	k.traverse();
+	cout << "Part 3" << endl;
 	return 0;
 }

@@ -6,14 +6,16 @@
 #include <iostream>
 
 struct Tree {
-	std::string id;
+	int id;
+	std::string move;
 	std::string description;
 	std::vector<Tree *> children;
 public:
-	Tree(std::string id, std::string description="");
-	bool isChild(Tree *);
+	Tree(int id, std::string move, std::string description="");
+	Tree *isChild(std::string);
 	void addChild(Tree *);
 	std::string getName(void);
+	int getId(void);
 	std::string getDescription(void);
 	void setDescription(std::string);
 	Tree *step(std::string);

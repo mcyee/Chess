@@ -1,0 +1,9 @@
+5
+start "The start node."
+e4 "Basic opening"
+d4 "Another basic opening"
+e5 "Standard"
+e5 "Non-standard, more or less aggressive."
+0 1 2 
+1 3 
+2 4 
