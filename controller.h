@@ -9,6 +9,7 @@
 class Controller {
 	std::fstream &read;
 	std::fstream &write;
+	std::string type;
 	int numNodes;
 	std::string player;
 	Tree *root;
@@ -20,8 +21,9 @@ public:
 	void printTree();
 	void printNodes();
 	void traverse();
+	void showMessage(); 
 	void save();
-	Controller(std::fstream &, std::fstream &);
+	Controller(std::fstream &, std::fstream &, std::string);
 	~Controller();
 };
 

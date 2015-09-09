@@ -34,7 +34,7 @@ void Interpreter::initiate() {
 			f.open(openingBook.c_str());
 		   	fstream g;
 			g.open(openingBook.c_str());
-			Controller k(f, g);
+			Controller k(f, g, "opening");
 			k.buildList();
 			k.traverse();
 			cout << "Done running the openings tool." << endl;

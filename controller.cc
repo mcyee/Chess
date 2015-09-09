@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Controller::Controller(fstream &read, fstream &write): read(read), write(write) {}
+Controller::Controller(fstream &read, fstream &write, string type): read(read), write(write), type(type) {}
 
 void Controller::buildList() {
 	string nodeName;
@@ -100,11 +100,20 @@ void Controller::switchPlayer(void) {
 	}
 }
 
+void Controller::showMessage() {
+	if(type == "gamebook") {
+		cout << "You should have recorded the game by now." << endl;
+		cout << "You are at the start of the game you just recorded." << endl;
+	} else if(type == "opening") {
+		cout << "This is the chess opening book tool." << endl;
+		cout << "Type in \"h\" to see command options." << endl;
+	}
+}
+
 void Controller::traverse() {
 	player = "black";
 	bool saved = true;
-	cout << "This is the chess opening book tool." << endl;
-	cout << "Type in \"h\" to see command options." << endl;
+	showMessage();
 	stack<Tree *> position;
 	position.push(root);
 	char action = '0';

@@ -7,8 +7,8 @@
 
 struct Tree {
 	int id;
-	char type; // Can be either "played", "main" or "opening". Opening will be used for 
-				// just the opening book while "main" and "played" will be used in files
+	char type; // Can be either "derivative", "main" or "opening". Opening will be used for 
+				// just the opening book while "main" and "derivative" will be used in files
 				// for game analysis. 
 	std::string move;
 	std::string description;
