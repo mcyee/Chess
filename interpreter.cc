@@ -1,5 +1,6 @@
 #include "interpreter.h"
 #include "controller.h"
+#include "gamebook.h"
 #include <sstream>
 
 using namespace std;	
@@ -39,6 +40,8 @@ void Interpreter::initiate() {
 			cout << "Done running the openings tool." << endl;
 		} else if(command == "gamebook") {
 			cout << "Running the gamebook tool" << endl;
+			GameBook gb = GameBook(gameBook);
+			gb.run();
 			cout << "Done running the tool" << endl;
 		} else if(command == "play") {
 			cout << "Initiating a game." << endl;
