@@ -13,6 +13,7 @@ class GameBook {
 	int numGames;
 public:
 	GameBook(std::string);
+	~GameBook();
 	void displayGames();
 	void run();
 };

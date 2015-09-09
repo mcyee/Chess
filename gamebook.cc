@@ -41,3 +41,10 @@ void GameBook::displayGames() {
 		(*i)->printInfo();
 	}
 }
+
+GameBook::~GameBook() {
+	vector<GameRecord *>::iterator i;
+	for(i = games.begin(); i != games.end(); i++) {
+		delete (*i);
+	}
+}
