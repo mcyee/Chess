@@ -9,6 +9,7 @@
 class Controller {
 	std::fstream &read;
 	std::fstream &write;
+
 	std::string type;
 	int numNodes;
 	std::string player;
@@ -18,6 +19,7 @@ class Controller {
 	void switchPlayer();
 public: 
 	void buildList();
+	void buildGame();
 	void printTree();
 	void printNodes();
 	void traverse();

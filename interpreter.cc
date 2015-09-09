@@ -34,9 +34,13 @@ void Interpreter::initiate() {
 			f.open(openingBook.c_str());
 		   	fstream g;
 			g.open(openingBook.c_str());
+			cout << "Point A" << endl;
 			Controller k(f, g, "opening");
+			cout << "Point B" << endl;
 			k.buildList();
+			cout << "Point C" << endl;
 			k.traverse();
+			cout << "Point D" << endl;
 			cout << "Done running the openings tool." << endl;
 		} else if(command == "gamebook") {
 			cout << "Running the gamebook tool" << endl;

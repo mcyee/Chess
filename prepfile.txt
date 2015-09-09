@@ -1,17 +1,13 @@
-10
-o start "The start node."
-o e4 "Basic opening"
-o d4 "Another basic opening"
-o e5 "Standard"
-o e5 "Non-standard, more or less aggressive."
-o c4 "Sicilian Defense"
-o Nf3 ""
-o d6 "This is the Philidor's Defense."
-o Nc6 ""
-o Bb5 "The Roy Lopez."
+7
+start "The start node"
+e4 "A basic opening."
+d4 "A basic opening."
+e5 ""
+Nf3 ""
+Nc6 ""
+Bb5 "The Ruy Lopez."
 0 1 2 
-1 3 5 
-3 6 
-6 7 8 
-8 9 
-2 4 
+1 3 
+3 4 
+4 5 
+5 6 

@@ -8,6 +8,26 @@ using namespace std;
 
 Controller::Controller(fstream &read, fstream &write, string type): read(read), write(write), type(type) {}
 
+void Controller::buildGame() {
+	numNodes = 1;
+	write << numNodes << endl;
+	write << "m start \"the start node.\"" << endl;
+	Tree *addme = new Tree(0, 'm', "start", "the start node");
+	nodeList.push_back(addme);
+	root = nodeList[0];
+	string move;
+	Tree *current = root;
+	cout << "Enter the moves. Press Ctrl-D when done." << endl;
+	while(cin >> move) {
+		addme = new Tree(numNodes, 'm', move, "");
+		current->addChild(addme);
+		nodeList.push_back(addme);
+		numNodes++;
+		current = addme;
+	}
+	save();
+}
+
 void Controller::buildList() {
 	string nodeName;
 	char nodeType;

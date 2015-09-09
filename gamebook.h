@@ -16,6 +16,7 @@ public:
 	~GameBook();
 	void displayGames();
 	void run();
+	void createGame(std::string, std::string, std::string);
 };
 
 #endif
