@@ -1,8 +1,12 @@
 #include "controller.h"
 #include "tree.h"
+#include "interpreter.h"
 using namespace std;
 
-int main(int argc, char *argv[]) {
+int main(
+		//int argc, char *argv[]
+		) {
+	/*
 	string ofile;
 	string file;
 	if (argc == 1) {
@@ -22,7 +26,7 @@ int main(int argc, char *argv[]) {
 		cout << "Improper number of arguments! Exiting." << endl;
 		return 0;
 	}
-
+	
 
 	fstream f;
 	fstream g;
@@ -31,5 +35,10 @@ int main(int argc, char *argv[]) {
 	Controller k(f, g);
 	k.buildList();
 	k.traverse();
+	return 0;
+	*/
+
+	Interpreter i;
+	i.initiate();
 	return 0;
 }
