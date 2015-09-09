@@ -7,11 +7,14 @@
 
 struct Tree {
 	int id;
+	char type; // Can be either "played", "main" or "opening". Opening will be used for 
+				// just the opening book while "main" and "played" will be used in files
+				// for game analysis. 
 	std::string move;
 	std::string description;
 	std::vector<Tree *> children;
 public:
-	Tree(int id, std::string move, std::string description="");
+	Tree(int id, char type, std::string move, std::string description) ;
 	Tree *isChild(std::string);
 	void addChild(Tree *);
 	std::string getName(void);

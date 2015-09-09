@@ -1,8 +1,8 @@
 #include "tree.h"
 using namespace std;
 
-Tree::Tree(int id, string move, string description): 
-	id(id), move(move), description(description) {}
+Tree::Tree(int id, char type, string move, string description): 
+	id(id), type(type), move(move), description(description) {}
 	
 void Tree::addChild(Tree *t) {
 	children.push_back(t);

@@ -10,12 +10,13 @@ Controller::Controller(fstream &read, fstream &write): read(read), write(write) 
 
 void Controller::buildList() {
 	string nodeName;
+	char nodeType;
 	string nodeDescription;
 	read >> numNodes;
 	for(int i = 0; i < numNodes; i++) {
-		read >> nodeName;	
+		read >> nodeType >> nodeName;	
 		nodeDescription = inputDescription(true);
-		Tree *addme = new Tree(i, nodeName, nodeDescription);
+		Tree *addme = new Tree(i, nodeType, nodeName, nodeDescription);
 		nodeList.push_back(addme);
 	}
 	
@@ -123,7 +124,7 @@ void Controller::traverse() {
 				switchPlayer();
 				cin >> next;
 				if(current->isChild(next) == NULL) {
-					addme = new Tree(numNodes, next);
+					addme = new Tree(numNodes, 'o', next, "");
 					current->addChild(addme);
 					nodeList.push_back(addme);
 					numNodes++;
