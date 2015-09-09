@@ -1,2 +1,2 @@
 make:
-	g++ -Wall -Werror -Wextra openings.cc tree.cc controller.cc -o chess
+	g++ -Wall -Werror -Wextra chess.cc tree.cc controller.cc -o chess
