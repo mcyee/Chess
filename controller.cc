@@ -10,8 +10,6 @@ Controller::Controller(fstream &read, fstream &write, string type): read(read), 
 
 void Controller::buildGame() {
 	numNodes = 1;
-	write << numNodes << endl;
-	write << "m start \"the start node.\"" << endl;
 	Tree *addme = new Tree(0, 'm', "start", "the start node");
 	nodeList.push_back(addme);
 	root = nodeList[0];
