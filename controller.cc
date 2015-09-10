@@ -17,8 +17,8 @@ void Controller::buildGame() {
 	root = nodeList[0];
 	string move;
 	Tree *current = root;
-	cout << "Enter the moves. Press Ctrl-D when done." << endl;
-	while(cin >> move) {
+	cout << "Enter the moves. Press q when done." << endl;
+	while(cin >> move && move != "q") {
 		addme = new Tree(numNodes, 'm', move, "");
 		current->addChild(addme);
 		nodeList.push_back(addme);
@@ -26,6 +26,7 @@ void Controller::buildGame() {
 		current = addme;
 	}
 	save();
+	cout << "The game was saved..." << endl;
 }
 
 void Controller::buildList() {

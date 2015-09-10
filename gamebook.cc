@@ -70,13 +70,15 @@ void GameBook::run() {
 			ss >> white >> black >> date;
 			createGame(white, black, date);
 			
-			fstream f;
-			fstream g;
 			string myfile = int2str(numGames - 1) + ".txt";
-			f.open(myfile.c_str());
-			f.close();
-			Controller k(g, f, "gamebook");
+			ofstream init(myfile.c_str());
+			init.open(myfile.c_str());
+			init << flush;
+			init.close();
+			fstream f(myfile.c_str());
+			Controller k(f, f, "gamebook");
 			k.buildGame();
+			k.traverse();
 			f.close();
 			cout << "tried to initialize a new game." << endl;
 		} else if(command == "help") {
@@ -108,12 +110,12 @@ void GameBook::createGame(string white, string black, string date) {
 	// Hacky sort of implementation int to string: put the value into 
 	// a stringstream as an int, and then read from that stringstream 
 	// into a string. 
-	ofstream f;
-	string myfile = int2str(numGames - 1) + ".txt";
-	f.open(myfile.c_str());
-	f << "This is the newly created game file." << endl;
-	f << "The players are: " << white << " " << black << endl;
-	f.close();
+//	ofstream f;
+//	string myfile = int2str(numGames - 1) + ".txt";
+//	f.open(myfile.c_str());
+//	f << "This is the newly created game file." << endl;
+//	f << "The players are: " << white << " " << black << endl;
+//	f.close();
 	games.push_back(addMe);
 	return;
 }
