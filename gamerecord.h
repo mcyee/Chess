@@ -11,6 +11,9 @@ class GameRecord {
 public:
 	GameRecord(int, std::string, std::string, std::string);
 	void printInfo();
+	std::string getWhite();
+	std::string getBlack();
+	std::string getDate();
 };
 
 #endif

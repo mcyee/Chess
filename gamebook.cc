@@ -68,9 +68,11 @@ void GameBook::run() {
 			string black;
 			string date;
 			ss >> white >> black >> date;
-			createGame(white, black, date);
+			numGames++;
+			GameRecord *addMe = new GameRecord(numGames, white, black, date);
+			games.push_back(addMe);
 			
-			string myfile = int2str(numGames - 1) + ".txt";
+			string myfile = int2str(numGames) + ".txt";
 			ofstream init(myfile.c_str());
 			init.open(myfile.c_str());
 			init << flush;
@@ -80,7 +82,7 @@ void GameBook::run() {
 			k.buildGame();
 			k.traverse();
 			f.close();
-			cout << "tried to initialize a new game." << endl;
+			save();
 		} else if(command == "help") {
 			// run the help function.
 			cout << "quit, open, new, help, display." << endl;
@@ -102,23 +104,20 @@ void GameBook::displayGames() {
 	}
 }
 
-void GameBook::createGame(string white, string black, string date) {
-	numGames++;
-	GameRecord *addMe = new GameRecord(numGames, white, black, date);
-	// create a file that will now hold the game. Pass the fstream 
-	// reference of that file to controller. 
-	// Hacky sort of implementation int to string: put the value into 
-	// a stringstream as an int, and then read from that stringstream 
-	// into a string. 
-//	ofstream f;
-//	string myfile = int2str(numGames - 1) + ".txt";
-//	f.open(myfile.c_str());
-//	f << "This is the newly created game file." << endl;
-//	f << "The players are: " << white << " " << black << endl;
-//	f.close();
-	games.push_back(addMe);
-	return;
+void GameBook::save() {
+	fstream f;
+	f.open(gamesFile.c_str());
+	vector<GameRecord *>::iterator i;
+	int j = 1;
+	f << numGames << endl;
+	for(i = games.begin(); i != games.end(); i++) {
+		f << j << " " << (*i)->getWhite() << " " << (*i)->getBlack();
+		f << " " << (*i)->getDate() << endl;
+		j++;
+	}
 }
+		
+		
 
 GameBook::~GameBook() {
 	vector<GameRecord *>::iterator i;

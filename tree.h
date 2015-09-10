@@ -7,9 +7,9 @@
 
 struct Tree {
 	int id;
-	char type; // Can be either "derivative", "main" or "opening". Opening will be used for 
-				// just the opening book while "main" and "derivative" will be used in files
-				// for game analysis. 
+	char type; // Can be either "main" or "opening". Opening will be used for 
+				// opening book and derivatives in games, while main will be 
+				// used for recording what was actually played in game. 
 	std::string move;
 	std::string description;
 	std::vector<Tree *> children;
