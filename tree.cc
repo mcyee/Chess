@@ -26,6 +26,10 @@ string Tree::getName(void) {
 	return move;
 }
 
+char Tree::getType(void) {
+	return type;
+}
+
 string Tree::getDescription(void) {
 	return description;
 }

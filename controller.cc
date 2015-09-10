@@ -244,7 +244,7 @@ void Controller::save() {
 	for(ii = nodeList.begin(); ii != nodeList.end(); ii++) {
 		//cout << ii->second->getName() << endl;
 		//cout << ii->second->getDescription() << endl;
-		write << (*ii)->getName() << " \"" << (*ii)->getDescription() << "\"" << endl;
+		write << (*ii)->getType() << " " << (*ii)->getName() << " \"" << (*ii)->getDescription() << "\"" << endl;
 	}
 	stack<Tree *> myStack;
 	myStack.push(root);

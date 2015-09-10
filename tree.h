@@ -19,6 +19,7 @@ public:
 	void addChild(Tree *);
 	std::string getName(void);
 	int getId(void);
+	char getType(void);
 	std::string getDescription(void);
 	void setDescription(std::string);
 	~Tree();
