@@ -268,7 +268,7 @@ void Controller::save() {
 			// Do nothing, since it's a terminal. 
 		}		
 	}
-	write.close();
+//	write.close();
 }
 
 Controller::~Controller() {

@@ -53,9 +53,11 @@ void GameBook::run() {
 		} else if(command == "open") {
 			string file;
 			ss >> file;
-			cout << "opening " << file << endl;
-			// initialize the controller and such. 
-			cout << "closing " << file << endl;
+			fstream f;
+			f.open(file.c_str());
+			Controller k(f, f, "gamebook");
+			k.buildList();
+			k.traverse();
 		} else if(command == "new") {
 			// run the newgame function which will initialize the players
 			// and the played moves. Thsi should be done half in the 
