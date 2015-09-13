@@ -1,10 +1,7 @@
 /**
  * Project: Chess
- * File: Interpreter.java
- *
  * Author: Ming-Cee Yee
- *
- * Date Created: 2015-09-11
+ * Created: 2015-09-11
  * Description: Launches the Chess game
  */
 package com.skysketches.chess;
