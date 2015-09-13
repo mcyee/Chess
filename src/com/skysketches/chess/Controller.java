@@ -8,10 +8,12 @@
 package com.skysketches.chess;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -214,7 +216,20 @@ public class Controller {
 	 * 
 	 */
 	public void save() {
-		
+		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(write))) {
+			// save number of nodes and its fields
+			writer.write(numNodes);
+			writer.newLine();
+			for (Tree t : nodeList) {
+				writer.write(t.getType() + " " + t.getMove() + " \""
+				    + t.getDescription() + "\"");
+				writer.newLine();
+			}
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
