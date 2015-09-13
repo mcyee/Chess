@@ -4,6 +4,7 @@
  * Created: 2015-09-11
  * Description: Launches the Chess game
  */
+
 package com.skysketches.chess;
 
 import java.io.FileInputStream;
@@ -27,10 +28,9 @@ class Interpreter {
 	 */
 	public void init() {
 		System.out.println("Welcome to this chess program!");
-		
 		Scanner scan = new Scanner(System.in);
 		
-		 // accept a text command
+		// accept a text command
 		try {
 			while (scan.hasNextLine()) {
 				StringTokenizer line = new StringTokenizer(scan.nextLine());
@@ -82,10 +82,11 @@ class Interpreter {
 			}
 			
 			System.out.println("Exited game.");
-		} catch (FileNotFoundException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        }
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		finally {
 			scan.close();
 		}

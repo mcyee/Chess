@@ -4,6 +4,7 @@
  * Created: 2015-09-12
  * Description: Stores opening moves
  */
+
 package com.skysketches.chess;
 
 import java.util.List;

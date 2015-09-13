@@ -4,6 +4,7 @@
  * Created: 2015-09-11
  * Description: 
  */
+
 package com.skysketches.chess;
 
 import java.io.BufferedReader;
@@ -37,17 +38,56 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * TODO i dunno what this does
 	 */
-	private String inputDescription(Boolean b) {
+	private String inputDescription(Boolean fromFile) {
+		String desc;
+		String input = "";
 		
+		// choose input source (file or stdin)
+		if (fromFile) {
+			BufferedReader br = new BufferedReader(new InputStreamReader(read));
+			try{
+				input = br.readLine();
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			Scanner scan = new Scanner(System.in);
+			input = scan.nextLine();
+			scan.close();
+		}
+		
+		// TODO what is going on
+		int i = 0;
+		while (input.charAt(i) != '"') {
+			i++;
+		}
+		i++;
+		int start = i;
+		int j = 0;
+		while (input.charAt(i) != '"') {
+			i++;
+			j++;
+		}
+		
+		desc = input.substring(start, j);
+		return desc;
 	}
 	
 	/**
-	 * 
+	 * switchPlayer() changes the player to the opposite colour
 	 */
 	private void switchPlayer() {
-		
+		if (player.equals("black")) {
+			this.player = "white";
+		}
+		else {
+			this.player = "black";
+		}
 	}
 	
 	/**
@@ -89,7 +129,7 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * TODO dunno
 	 */
 	public void buildList() {
 		String nodeName;
@@ -97,8 +137,7 @@ public class Controller {
 		String nodeDescription;
 		// read in numNodes
 		BufferedReader br = new BufferedReader(new InputStreamReader(read));
-		try
-		{
+		try {
 			// get node information and add to tree
 			String temp = br.readLine();
 			numNodes = Integer.parseInt(temp);
@@ -126,8 +165,7 @@ public class Controller {
 				// TODO reading in the file is a pita. Please comment this!
 			}
 		}
-		catch (IOException e)
-		{
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -141,10 +179,13 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * printNodes() prints all the nodes in the tree
 	 */
 	public void printNodes() {
-		
+		System.out.println(this.root.getMove() + " is the root.");
+		for (Tree t : nodeList) {
+			System.out.println(t.getID() + " " + t.getMove());
+		}
 	}
 	
 	/**
@@ -155,10 +196,18 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * showMessage() prints the initial messages of the given type of book
 	 */
 	public void showMessage() {
-		
+		if (type.equals("gamebook")) {
+			System.out.println("You should have recorded the game by now.");
+			System.out.println("You are at the start of the game you just recorded.");
+			// TODO these messages seem conflicting...
+		}
+		else { // type.equals("opening")
+			System.out.println("This is the chess opening book tool.");
+			System.out.println("Type in \"h\" to see command options.");
+		}
 	}
 	
 	/**
