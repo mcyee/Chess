@@ -6,16 +6,16 @@
  */
 package com.skysketches.chess;
 
-import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 class Interpreter {
 	
-	private String openingBook;
-	private String gameBook;
+	private String openingBook; // TODO what are these
+	private String gameBook; // TODO ^
 
 	public Interpreter() {
 		this.openingBook = "prepfile.txt";
@@ -23,7 +23,7 @@ class Interpreter {
 	}
 
 	/**
-	 * init() initialises (launches) the game
+	 * init() initialises (launches) the game and provides main menu options
 	 */
 	public void init() {
 		System.out.println("Welcome to this chess program!");
@@ -56,9 +56,9 @@ class Interpreter {
 				else if (command.equals("openings")) {
 					System.out.println("Running the openings tool.");
 					
-					Scanner scanBook = new Scanner(new BufferedReader(new FileReader(openingBook)));
-					Scanner scanBook2 = new Scanner(new BufferedReader(new FileReader(openingBook))); // TODO why are there 2?
-					Controller controller = new Controller(scanBook, scanBook2, "opening");
+					FileInputStream scanBookIn = new FileInputStream(openingBook);
+					FileOutputStream scanBookOut = new FileOutputStream(openingBook);
+					Controller controller = new Controller(scanBookIn, scanBookOut, "opening");
 					
 					controller.buildList();
 					controller.traverse();
@@ -91,6 +91,9 @@ class Interpreter {
 		}
 	}
 	
+	/**
+	 * help() lists all available commands
+	 */
 	public void help() {
 		System.out.println("These are the current possible commands:");
 		System.out.println("\"openings\": Use the opening book tool.");
@@ -98,6 +101,9 @@ class Interpreter {
 		System.out.println("\"play\": Play a game of chess.");
 	}
 	
+	/**
+	 * help(s) displays the description for the command s
+	 */
 	public void help(String s) {
 		// TODO command descriptions
 	}

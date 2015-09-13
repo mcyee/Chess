@@ -22,11 +22,12 @@ public class Controller {
 	private FileInputStream read;
 	private FileOutputStream write;
 	
-	private String type;
+	private String type; // TODO type of what?
 	private String player;
-	private int numNodes;
-	private Tree root;
-	private List<Tree> nodeList; // list of all nodes added prior to current
+	private int numNodes; // TODO shouldn't this be a field of Tree?
+	private Tree root; // TODO what tree is this?
+	private List<Tree> nodeList; // TODO what's the point of this 
+	// list of all nodes added prior to current
 	
 	public Controller(FileInputStream r, FileOutputStream w, String t)
 	{
@@ -121,6 +122,8 @@ public class Controller {
 				StringTokenizer st = new StringTokenizer(production);
 				temp = st.nextToken();
 				rootID = Integer.parseInt(temp);
+				
+				// TODO reading in the file is a pita. Please comment this!
 			}
 		}
 		catch (IOException e)
@@ -131,10 +134,10 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * printTree() prints the ...opening tree?
 	 */
 	public void printTree() {
-		
+		this.root.printTree(); // TODO why can't you call this directly?
 	}
 	
 	/**

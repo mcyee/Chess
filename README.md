@@ -1,22 +1,22 @@
 ## Chess
 
-This is a standalone application in which you can play a game of chess as well as do the following
+This is a standalone application in which you can play a game of chess as well as do the following:
 
 * Develop openings with annotations
 * Record chess games for analysis
 * Use the computer to analyze recorded chess games
 
-###Features in Development
+##Features in Development
 
 * Record chess games for analysis
 	
-###Completed Components
+##Completed Components
 
 * The main framework that will help us navigate through a completed game 
 
 ###To Do
 
-* Feature: save the game information in terms of who was white, black, when the game was played, etc. (This differentiates between a game file and opening file, etc)
+* Feature: save the game information
 
 **Note**:  
 The C++ implementation has been moved to the `cpp` branch as this project is intended to be written in Java.
