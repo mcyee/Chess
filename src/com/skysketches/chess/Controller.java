@@ -97,8 +97,7 @@ public class Controller {
 	 */
 	public void buildGame() {
 		numNodes = 1;
-		Tree node = new Tree(0, 'm', "start", "the start node");
-		nodeList.add(node);
+		nodeList.add(new Tree(0, 'm', "start", "the start node"));
 		root = nodeList.get(0);
 		Tree current = root;
 
@@ -147,8 +146,7 @@ public class Controller {
 				nodeType = (char) br.read();
 				nodeName = br.readLine();
 				nodeDescription = inputDescription(true);
-				Tree newNode = new Tree(i, nodeType, nodeName, nodeDescription);
-				this.nodeList.add(newNode);
+				this.nodeList.add(new Tree(i, nodeType, nodeName, nodeDescription));
 			}
 			
 			this.root = nodeList.get(0); // Assume first node is root
