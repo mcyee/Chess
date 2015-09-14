@@ -174,7 +174,7 @@ public class Controller {
 	}
 	
 	/**
-	 * printTree() prints the ...opening tree?
+	 * printTree() prints the ...opening tree? TODO
 	 */
 	public void printTree() {
 		this.root.printTree(); // TODO why can't you call this directly?
@@ -191,10 +191,122 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * TODO
 	 */
 	public void traverse() {
+		this.player = "black";
 		
+		Boolean saved = true;
+		String next;
+		char action = '0';
+		char ans = 'n';
+		String newDescription;
+		Tree nextStep;
+		Tree newTree;
+		Stack<Tree> position = new Stack<Tree>();
+		position.push(this.root);
+		Tree current = position.peek();
+
+		this.showMessage();
+		do {
+			Scanner scan = new Scanner(System.in);
+			
+			current = position.peek();
+			System.out.println("~> ");
+			action = scan.next(".").charAt(0);
+			
+			// select game play options
+			switch(action) {
+				case 'j': // TODO desc of each case
+					switchPlayer();
+					next = scan.next();
+					if (current.isChild(next) == null) {
+						newTree = new Tree(numNodes, 'o', next, "");
+						current.addChild(newTree);
+						this.nodeList.add(newTree);
+						this.numNodes++;
+						saved = false;
+						nextStep = newTree;
+					}
+					else {
+						nextStep = current.isChild(next);
+					}
+					position.push(nextStep);
+					System.out.println(player + " plays " + nextStep.getMove());
+					break;
+				case 'b': // TODO add comment
+					if (current.getID() == root.getID()) {
+						System.out.println("Already at the root node.");
+					}
+					else {
+						switchPlayer();
+						position.pop();
+						current = position.peek();
+						if (current.getID() != root.getID()) {
+							System.out.println(player + " plays " + current.getMove());
+						}
+						else {
+							System.out.println("At the beginning of the game.");
+						}
+					}
+					break;
+				case 'd': // TODO add comment
+					System.out.println(current.getDescription());
+					break;
+				case 'a': // TODO add comment
+					// TODO why can't these be done on one line?
+					newDescription = inputDescription(false);
+					newDescription = current.getDescription() + newDescription;
+					
+					current.setDescription(newDescription);
+					break;
+				case 'r': // TODO add comment
+					newDescription = inputDescription(false);
+					newDescription = scan.next(); // TODO overwriting the line above??
+					current.setDescription(newDescription);
+					break;
+				case 'c': // TODO add comment
+					for (Tree t : current) // TODO can't access children
+					break;
+				case 's': // TODO add comment
+					System.out.println("This option cannot be undone. "
+					    + "Are you sure you want to save? (y/n): ");
+					ans = scan.next(".").charAt(0);
+					if (ans == 'y') {
+						save();
+						System.out.println("Saved changes.");
+					}
+					saved = true; // TODO should be in the if block?? ^
+					break;
+				case 'q': // TODO add comment
+					if (!saved) {
+						System.out.println("There are unsaved changes. "
+						    + "Are you sure you want to quit without saving? (y/n): ");
+						ans = scan.next(".").charAt(0);
+						if (ans == 'y') {
+							return; // TODO not sure this works in java?
+						}
+					}
+					else {
+						return;
+					}
+					break;
+				case 'h':
+					System.out.println("a = append a description on the current node.");
+					System.out.println("b = go back to the parent node.");
+					System.out.println("c = display the \"names\" of all children.");
+					System.out.println("d = view the description on the current node.");
+					System.out.println("h = display this list of commands");
+					System.out.println("j = jump to a node that is a child.");
+					System.out.println("r = replace a description on the current node.");
+					System.out.println("s = save the currend changes.");
+					break;
+				default:
+					System.out.println("Command not recognized. "
+					    + "Type 'h' to see a list of possible commands.");
+					break;
+			}
+		} while (true); // TODO is there a better way to control this loop?
 	}
 	
 	/**
@@ -213,7 +325,7 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * save() saves the current game to file
 	 */
 	public void save() {
 		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(write))) {
@@ -224,6 +336,19 @@ public class Controller {
 				writer.write(t.getType() + " " + t.getMove() + " \""
 				    + t.getDescription() + "\"");
 				writer.newLine();
+			}
+			// TODO what is going on, also children are private so you can't
+			// access them outside of the class
+			Stack<Tree> treeStack = new Stack<Tree>();
+			treeStack.push(root);
+			Tree current;
+			while (!treeStack.isEmpty()) {
+				current = treeStack.pop();
+				if (current.getChildrenSize() > 0) {
+					writer.write(current.getID());
+					writer.write(" ");
+					for ()
+				}
 			}
 		}
 		catch (IOException e) {

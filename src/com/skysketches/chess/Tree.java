@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Tree {
 
-	private int id;
+	private int id; // TODO implement a static counter and fix controller instances
 	private char type; // TODO could be boolean? // 'm" for "main, 'o' for "opening"
 	private String move;
 	private String description;
@@ -53,6 +53,12 @@ public class Tree {
 		return this.description;
 	}
 	
+	/**
+	 * getChildrenSize() returns the number of children
+	 */
+	public int getChildrenSize() {
+		return this.children.size();
+	}
 	/**
 	 * setDescription(s) changes the description to s
 	 */
