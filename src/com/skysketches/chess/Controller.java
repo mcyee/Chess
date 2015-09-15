@@ -97,7 +97,8 @@ public class Controller {
 	 */
 	public void buildGame() {
 		numNodes = 1;
-		nodeList.add(new Tree(0, 'm', "start", "the start node"));
+		Tree node = new Tree(0, 'm', "start", "the start node");
+		nodeList.add(node);
 		root = nodeList.get(0);
 		Tree current = root;
 
