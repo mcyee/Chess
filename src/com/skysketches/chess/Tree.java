@@ -12,7 +12,7 @@ import java.util.List;
 public class Tree {
 
 	private int id; // TODO implement a static counter and fix controller instances
-	private char type; // TODO could be boolean? // 'm" for "main, 'o' for "opening"
+	private char type; // 'm" for "main, 'o' for "opening"
 	private String move;
 	private String description;
 	private List<Tree> children;

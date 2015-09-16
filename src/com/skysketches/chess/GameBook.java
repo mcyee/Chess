@@ -1,8 +1,8 @@
 /**
  * Project: Chess
  * Author: Ming-Cee Yee
- * Created: Sep 14, 2015
- * Description: Maintains list of saved games
+ * Created: 2015-09-14
+ * Description: Maintains list of saved games (GameRecords)
  */
 
 package com.skysketches.chess;
@@ -36,7 +36,7 @@ public class GameBook {
 		
 			this.numGames = br.read();
 
-			String input = br.readLine(); // TODO isn't being used?
+			String input = br.readLine(); // TODO isn't being used for anything?
 			int id;
 			String black;
 			String white;

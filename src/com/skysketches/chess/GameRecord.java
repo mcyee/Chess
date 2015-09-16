@@ -1,8 +1,8 @@
 /**
  * Project: Chess
  * Author: Ming-Cee Yee
- * Created: Sep 15, 2015
- * Description: 
+ * Created: 2015-09-15
+ * Description: Stores metadata of save games
  */
 
 package com.skysketches.chess;

@@ -154,16 +154,29 @@ public class Controller {
 			
 			Stack<Tree> treeStack = new Stack<Tree>();
 			String production;
-			int token;
 			int rootID;
 			treeStack.push(root);
-			while((production = br.readLine()) != null) {
+			while(null != (production = br.readLine())) {
 				List<Tree> treeList = new ArrayList<Tree>();
 				StringTokenizer st = new StringTokenizer(production);
-				temp = st.nextToken();
-				rootID = Integer.parseInt(temp);
+				rootID = Integer.parseInt(st.nextToken());
 				
 				// TODO reading in the file is a pita. Please comment this!
+				while (st.hasMoreTokens()) {
+					treeList.add(nodeList.get(Integer.parseInt(st.nextToken())));
+				}
+				Tree currentRoot = treeStack.peek();
+				while (currentRoot.getID() != rootID) {
+					treeStack.pop();
+					currentRoot = treeStack.peek();
+				}
+				treeStack.pop();
+				for (int i = treeList.size(); i > 0; i--) {
+					treeStack.push(treeList.get(i));
+				}
+				for (Tree t : treeList) {
+					currentRoot.addChild(t);
+				}
 			}
 		}
 		catch (IOException e) {
