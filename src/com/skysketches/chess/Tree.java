@@ -11,18 +11,22 @@ import java.util.List;
 
 public class Tree {
 
+	private static int counter = 0;
+	
 	private int id; // TODO implement a static counter and fix controller instances
 	private char type; // 'm" for "main, 'o' for "opening"
 	private String move;
 	private String description;
 	private List<Tree> children;
 	
-	public Tree(int id, char t, String m, String d)
+	public Tree(char t, String m, String d)
 	{
-		this.id = id;
+		this.id = counter;
 		this.type = t;
 		this.move = m;
 		this.description = d;
+		
+		this.counter++;
 	}
 	
 	/**

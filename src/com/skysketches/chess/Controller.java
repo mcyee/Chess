@@ -25,7 +25,7 @@ public class Controller {
 	private FileInputStream read;
 	private FileOutputStream write;
 	
-	private String type; // TODO type of what?
+	private String type;
 	private String player;
 	private int numNodes; // TODO shouldn't this be a field of Tree?
 	private Tree root; // TODO what tree is this?
@@ -97,7 +97,7 @@ public class Controller {
 	 */
 	public void buildGame() {
 		numNodes = 1;
-		Tree node = new Tree(0, 'm', "start", "the start node");
+		Tree node = new Tree('m', "start", "the start node");
 		nodeList.add(node);
 		root = nodeList.get(0);
 		Tree current = root;
@@ -115,7 +115,7 @@ public class Controller {
 				if (move.equals("q")) break;
 				
 				// add node to tree
-				node = new Tree(numNodes, 'm', move, "");
+				node = new Tree('m', move, "");
 				current.addChild(node);
 				nodeList.add(node);
 				numNodes++;
@@ -147,7 +147,7 @@ public class Controller {
 				nodeType = (char) br.read();
 				nodeName = br.readLine();
 				nodeDescription = inputDescription(true);
-				this.nodeList.add(new Tree(i, nodeType, nodeName, nodeDescription));
+				this.nodeList.add(new Tree(nodeType, nodeName, nodeDescription));
 			}
 			
 			this.root = nodeList.get(0); // Assume first node is root
@@ -233,7 +233,7 @@ public class Controller {
 					switchPlayer();
 					next = scan.next();
 					if (current.isChild(next) == null) {
-						newTree = new Tree(numNodes, 'o', next, "");
+						newTree = new Tree('o', next, "");
 						current.addChild(newTree);
 						this.nodeList.add(newTree);
 						this.numNodes++;
