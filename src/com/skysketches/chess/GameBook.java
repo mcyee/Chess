@@ -112,8 +112,7 @@ public class GameBook {
 		System.out.println("~> ");
 		String input;
 
-		Scanner scan = new Scanner(System.in);
-		try {
+		try (Scanner scan = new Scanner(System.in)) {
 			// reads in user command
 			while(scan.hasNextLine()) {
 				input = scan.nextLine();
@@ -164,9 +163,6 @@ public class GameBook {
 		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		finally {
-			scan.close();
 		}
 	}
 	

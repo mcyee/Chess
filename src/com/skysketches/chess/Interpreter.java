@@ -28,10 +28,9 @@ class Interpreter {
 	 */
 	public void init() {
 		System.out.println("Welcome to this chess program!");
-		Scanner scan = new Scanner(System.in);
+		try (Scanner scan = new Scanner(System.in)) {
 		
-		// accept a text command
-		try {
+			// accept a text command
 			while (scan.hasNextLine()) {
 				StringTokenizer line = new StringTokenizer(scan.nextLine());
 				String command = line.nextToken();
@@ -86,9 +85,6 @@ class Interpreter {
 		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		finally {
-			scan.close();
 		}
 	}
 	

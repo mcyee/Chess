@@ -8,7 +8,6 @@
 package com.skysketches.chess;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -58,9 +57,9 @@ public class Controller {
 			}
 		}
 		else {
-			Scanner scan = new Scanner(System.in);
-			input = scan.nextLine();
-			scan.close();
+			try (Scanner scan = new Scanner(System.in)) {
+				input = scan.nextLine();
+			}
 		}
 		
 		// TODO what is going on
@@ -103,11 +102,9 @@ public class Controller {
 		Tree current = root;
 
 		String move;
-		Scanner scan = new Scanner(System.in);
-		
-		System.out.println("Enter the moves and \"q\" when done");
-		
-		try {
+		try (Scanner scan = new Scanner(System.in)) {
+			System.out.println("Enter the moves and \"q\" when done");
+			
 			while (scan.hasNext()) {
 				move = scan.next();
 				
@@ -124,9 +121,6 @@ public class Controller {
 			
 			this.save();
 			System.out.println("The game was saved.");
-		}
-		finally {
-			scan.close();
 		}
 	}
 	
@@ -186,11 +180,11 @@ public class Controller {
 	}
 	
 	/**
-	 * printTree() prints the ...opening tree? TODO
+	 * printTree() prints the ...opening tree? TODO write more accurate comment, *****UNUSED METHOD*****
 	 */
-	public void printTree() {
-		this.root.printTreeID(); // TODO why can't you call this directly?
-	}
+//	public void printTree() {
+//		this.root.printTreeID(); // TODO why can't you call this directly?
+//	}
 	
 	/**
 	 * printNodes() prints all the nodes in the tree
@@ -221,102 +215,104 @@ public class Controller {
 
 		this.showMessage();
 		do {
-			Scanner scan = new Scanner(System.in);
-			
-			current = position.peek();
-			System.out.println("~> ");
-			action = scan.next(".").charAt(0);
-			
-			// select game play options
-			switch(action) {
-				case 'j': // TODO desc of each case
-					switchPlayer();
-					next = scan.next();
-					if (current.isChild(next) == null) {
-						newTree = new Tree('o', next, "");
-						current.addChild(newTree);
-						this.nodeList.add(newTree);
-						this.numNodes++;
-						saved = false;
-						nextStep = newTree;
-					}
-					else {
-						nextStep = current.isChild(next);
-					}
-					position.push(nextStep);
-					System.out.println(player + " plays " + nextStep.getMove());
-					break;
-				case 'b': // TODO add comment
-					if (current.getID() == root.getID()) {
-						System.out.println("Already at the root node.");
-					}
-					else {
+			try (Scanner scan = new Scanner(System.in)) {
+				
+				current = position.peek();
+				System.out.println("~> ");
+				action = scan.next(".").charAt(0);
+				
+				// select game play options
+				switch(action) {
+					case 'j': // TODO desc of each case
 						switchPlayer();
-						position.pop();
-						current = position.peek();
-						if (current.getID() != root.getID()) {
-							System.out.println(player + " plays " + current.getMove());
+						next = scan.next();
+						if (current.isChild(next) == null) {
+							newTree = new Tree('o', next, "");
+							current.addChild(newTree);
+							this.nodeList.add(newTree);
+							this.numNodes++;
+							saved = false;
+							nextStep = newTree;
 						}
 						else {
-							System.out.println("At the beginning of the game.");
+							nextStep = current.isChild(next);
 						}
-					}
-					break;
-				case 'd': // TODO add comment
-					System.out.println(current.getDescription());
-					break;
-				case 'a': // TODO add comment
-					// TODO why can't these be done on one line?
-					newDescription = inputDescription(false);
-					newDescription = current.getDescription() + newDescription;
-					
-					current.setDescription(newDescription);
-					break;
-				case 'r': // TODO add comment
-					newDescription = inputDescription(false);
-					newDescription = scan.next(); // TODO overwriting the line above??
-					current.setDescription(newDescription);
-					break;
-				case 'c': // TODO add comment
-					current.printChildrenMoves();
-					break;
-				case 's': // TODO add comment
-					System.out.println("This option cannot be undone. "
-					    + "Are you sure you want to save? (y/n): ");
-					ans = scan.next(".").charAt(0);
-					if (ans == 'y') {
-						save();
-						System.out.println("Saved changes.");
-					}
-					saved = true; // TODO should be in the if block?? ^
-					break;
-				case 'q': // TODO add comment
-					if (!saved) {
-						System.out.println("There are unsaved changes. "
-						    + "Are you sure you want to quit without saving? (y/n): ");
+						position.push(nextStep);
+						System.out.println(player + " plays " + nextStep.getMove());
+						break;
+					case 'b': // TODO add comment
+						if (current.getID() == root.getID()) {
+							System.out.println("Already at the root node.");
+						}
+						else {
+							switchPlayer();
+							position.pop();
+							current = position.peek();
+							if (current.getID() != root.getID()) {
+								System.out.println(player + " plays " + current.getMove());
+							}
+							else {
+								System.out.println("At the beginning of the game.");
+							}
+						}
+						break;
+					case 'd': // TODO add comment
+						System.out.println(current.getDescription());
+						break;
+					case 'a': // TODO add comment
+						// TODO why can't these be done on one line?
+						newDescription = inputDescription(false);
+						newDescription = current.getDescription() + newDescription;
+						
+						current.setDescription(newDescription);
+						break;
+					case 'r': // TODO add comment
+						newDescription = inputDescription(false);
+						newDescription = scan.next(); // TODO overwriting the line above??
+						current.setDescription(newDescription);
+						break;
+					case 'c': // TODO add comment
+						current.printChildrenMoves();
+						break;
+					case 's': // TODO add comment
+						System.out.println("This option cannot be undone. "
+						    + "Are you sure you want to save? (y/n): ");
 						ans = scan.next(".").charAt(0);
 						if (ans == 'y') {
-							return; // TODO not sure this works in java?
+							save();
+							System.out.println("Saved changes.");
 						}
-					}
-					else {
-						return;
-					}
-					break;
-				case 'h':
-					System.out.println("a = append a description on the current node.");
-					System.out.println("b = go back to the parent node.");
-					System.out.println("c = display the \"names\" of all children.");
-					System.out.println("d = view the description on the current node.");
-					System.out.println("h = display this list of commands");
-					System.out.println("j = jump to a node that is a child.");
-					System.out.println("r = replace a description on the current node.");
-					System.out.println("s = save the currend changes.");
-					break;
-				default:
-					System.out.println("Command not recognized. "
-					    + "Type 'h' to see a list of possible commands.");
-					break;
+						saved = true; // TODO should be in the if block?? ^
+						break;
+					case 'q': // TODO add comment
+						// TODO this doesn't actually do anything except display a message
+						if (!saved) {
+							System.out.println("There are unsaved changes. "
+							    + "Are you sure you want to quit without saving? (y/n): ");
+							ans = scan.next(".").charAt(0);
+							if (ans == 'y') {
+								return; // TODO not sure this works in java?
+							}
+						}
+						else {
+							return;
+						}
+						break;
+					case 'h':
+						System.out.println("a = append a description on the current node.");
+						System.out.println("b = go back to the parent node.");
+						System.out.println("c = display the \"names\" of all children.");
+						System.out.println("d = view the description on the current node.");
+						System.out.println("h = display this list of commands");
+						System.out.println("j = jump to a node that is a child.");
+						System.out.println("r = replace a description on the current node.");
+						System.out.println("s = save the currend changes.");
+						break;
+					default:
+						System.out.println("Command not recognized. "
+						    + "Type 'h' to see a list of possible commands.");
+						break;
+				}
 			}
 		} while (true); // TODO is there a better way to control this loop?
 	}
