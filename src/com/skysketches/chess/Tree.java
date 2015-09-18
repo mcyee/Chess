@@ -7,13 +7,16 @@
 
 package com.skysketches.chess;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 public class Tree {
 
 	private static int counter = 0;
 	
-	private int id; // TODO implement a static counter and fix controller instances
+	private int id;
 	private char type; // 'm" for "main, 'o' for "opening"
 	private String move;
 	private String description;
@@ -21,12 +24,12 @@ public class Tree {
 	
 	public Tree(char t, String m, String d)
 	{
-		this.id = counter;
+		this.id = Tree.counter;
 		this.type = t;
 		this.move = m;
 		this.description = d;
 		
-		this.counter++;
+		Tree.counter++;
 	}
 	
 	/**
@@ -63,6 +66,7 @@ public class Tree {
 	public int getChildrenSize() {
 		return this.children.size();
 	}
+	
 	/**
 	 * setDescription(s) changes the description to s
 	 */
@@ -90,13 +94,55 @@ public class Tree {
 	}
 	
 	/**
-	 * printTree() prints the tree to standard output
+	 * printChildrenMoves() prints the children moves
 	 */
-	public void printTree() {
+	public void printChildrenMoves() {
+		for (Tree t : children) {
+			System.out.print(t.getMove() + " ");
+		}
+		System.out.println();
+	}
+	/**
+	 * printTreeID() prints the ID's of all the nodes in the tree to standard output
+	 */
+	public void printTreeID() {
 		System.out.println(id);
 		for (Tree t : children) {
-			t.printTree();
+			t.printTreeID();
 		}
 	}
 
+	/**
+	 * save() saves the Tree to file
+	 * @throws IOException 
+	 */
+	public void save(Writer writer) throws IOException {
+		BufferedWriter bw = new BufferedWriter(writer);
+		// save number of nodes and its fields
+		int numNodes = Tree.counter + 1;
+		bw.write(numNodes);
+		bw.newLine();
+		bw.write(this.getType() + " " + this.getMove() + " \""
+		    + this.getDescription() + "\"");
+		bw.newLine();
+		// recursively save children
+		for (Tree t : children) {
+			t.save(bw);
+		}
+		// TODO what is going on, also children are private so you can't
+		// access them outside of the class
+//		Stack<Tree> treeStack = new Stack<Tree>();
+//		treeStack.push(root);
+//		Tree current;
+//		while (!treeStack.isEmpty()) {
+//			current = treeStack.pop();
+//			if (current.getChildrenSize() > 0) {
+//				writer.write(current.getID());
+//				writer.write(" ");
+//				for () {
+//					
+//				}
+//			}
+//		}
+	}
 }

@@ -189,7 +189,7 @@ public class Controller {
 	 * printTree() prints the ...opening tree? TODO
 	 */
 	public void printTree() {
-		this.root.printTree(); // TODO why can't you call this directly?
+		this.root.printTreeID(); // TODO why can't you call this directly?
 	}
 	
 	/**
@@ -278,7 +278,7 @@ public class Controller {
 					current.setDescription(newDescription);
 					break;
 				case 'c': // TODO add comment
-					for (Tree t : current) // TODO can't access children
+					current.printChildrenMoves();
 					break;
 				case 's': // TODO add comment
 					System.out.println("This option cannot be undone. "
@@ -340,28 +340,8 @@ public class Controller {
 	 * save() saves the current game to file
 	 */
 	public void save() {
-		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(write))) {
-			// save number of nodes and its fields
-			writer.write(numNodes);
-			writer.newLine();
-			for (Tree t : nodeList) {
-				writer.write(t.getType() + " " + t.getMove() + " \""
-				    + t.getDescription() + "\"");
-				writer.newLine();
-			}
-			// TODO what is going on, also children are private so you can't
-			// access them outside of the class
-			Stack<Tree> treeStack = new Stack<Tree>();
-			treeStack.push(root);
-			Tree current;
-			while (!treeStack.isEmpty()) {
-				current = treeStack.pop();
-				if (current.getChildrenSize() > 0) {
-					writer.write(current.getID());
-					writer.write(" ");
-					for ()
-				}
-			}
+		try {
+			this.root.save(new OutputStreamWriter(this.write));
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
