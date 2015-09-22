@@ -202,24 +202,26 @@ public class Controller {
 	public void traverse() {
 		this.player = "black";
 		
-		Boolean saved = true;
-		String next;
-		char action = '0';
-		char ans = 'n';
-		String newDescription;
-		Tree nextStep;
-		Tree newTree;
 		Stack<Tree> position = new Stack<Tree>();
 		position.push(this.root);
 		Tree current = position.peek();
 
+		Boolean saved = true;
+		char action = '0';
+		char ans = 'n';
+		String next;
+		String newDescription;
+		Tree nextStep;
+		Tree newTree;
+
 		this.showMessage();
+		
 		do {
 			try (Scanner scan = new Scanner(System.in)) {
 				
 				current = position.peek();
 				System.out.println("~> ");
-				action = scan.next(".").charAt(0);
+				action = scan.next(".").charAt(0); // read in the first char
 				
 				// select game play options
 				switch(action) {
@@ -298,6 +300,7 @@ public class Controller {
 							return;
 						}
 						break;
+					// Displays list of descriptions of all tree traversing commands
 					case 'h':
 						System.out.println("a = append a description on the current node.");
 						System.out.println("b = go back to the parent node.");
@@ -336,6 +339,7 @@ public class Controller {
 	 * save() saves the current game to file
 	 */
 	public void save() {
+		// calls save on Tree object
 		try {
 			this.root.save(new OutputStreamWriter(this.write));
 		}

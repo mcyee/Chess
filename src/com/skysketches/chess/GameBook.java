@@ -29,10 +29,8 @@ public class GameBook {
 		this.gamesFile = gf;
 		
 		// read game data from file
-		BufferedReader br;
-		try {
-			br = new BufferedReader(new InputStreamReader
-			    (new FileInputStream(this.gamesFile)));
+		try (BufferedReader br = new BufferedReader(new InputStreamReader
+			    (new FileInputStream(this.gamesFile)))) {
 		
 			this.numGames = br.read();
 
@@ -41,6 +39,8 @@ public class GameBook {
 			String black;
 			String white;
 			String date;
+			
+			// read in data for each game 
 			for (int i = 0; i < numGames; i++) {
 				input = br.readLine();
 				StringTokenizer st = new StringTokenizer(input);
