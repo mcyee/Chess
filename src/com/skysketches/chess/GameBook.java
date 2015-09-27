@@ -34,8 +34,8 @@ public class GameBook {
 		
 			this.numGames = br.read();
 
-			String input = br.readLine(); // TODO isn't being used for anything?
-			int id;
+			String input = br.readLine(); // TODO isn't being used for anything?		// Used because... we need to clear one line otherwise it won't work... 
+			int id;																		// it's a one off error that comes in from somewhere. 
 			String black;
 			String white;
 			String date;
@@ -139,13 +139,13 @@ public class GameBook {
 					games.add(new GameRecord(numGames, white, black, date));
 					
 					String saveFile = numGames + ".txt";
-					// TODO stuff flush?
+					// TODO stuff flush?				// Not sure what this means. 
 					FileInputStream fistream = new FileInputStream(saveFile);
 					FileOutputStream fostream = new FileOutputStream(saveFile);
 					Controller controller = new Controller(fistream, fostream, "gamebook");
 					controller.buildGame();
 					controller.traverse();
-					// TODO close file?
+					// TODO close file?			// Um, I'm not sure. Is it then possible to save again if we want to? Would we have to open the file again? 
 					save();
 				}
 				else if (command.equals("help")) {
@@ -167,7 +167,7 @@ public class GameBook {
 	}
 	
 	/**
-	 * TODO missing?
+	 * TODO missing?	// I think this is your stuff? I think I was able to create the function... 
 	 */
 	public void createGame(String white, String black, String date) {
 		

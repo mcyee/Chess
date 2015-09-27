@@ -15,7 +15,7 @@ import java.util.StringTokenizer;
 
 class Interpreter {
 	
-	private String openingBook; // TODO what are these
+	private String openingBook; // TODO what are these		two variables that hold the names of the files that hold the openingbook and list of games. 
 	private String gameBook; // TODO ^
 
 	public Interpreter() {
@@ -71,7 +71,7 @@ class Interpreter {
 				}
 				else if (command.equals("play")) {
 					System.out.println("Initiating a game.");
-					// TODO implement
+					// TODO implement							// Yeah, this is something that has yet to be implemented, and is huge. 
 					System.out.println("Done playing.");
 				}
 				else {
@@ -102,6 +102,6 @@ class Interpreter {
 	 * help(s) displays the description for the command s
 	 */
 	public void help(String s) {
-		// TODO command descriptions
+		// TODO command descriptions			// Oh, right. I haven't yet made this help function do stuff yet.
 	}
 }

@@ -129,7 +129,7 @@ public class Tree {
 		for (Tree t : children) {
 			t.save(bw);
 		}
-		// TODO what is going on, also children are private so you can't
+		// TODO what is going on, also children are private so you can't		// Um... this works... look at the cpp file for inspiration? idk
 		// access them outside of the class
 //		Stack<Tree> treeStack = new Stack<Tree>();
 //		treeStack.push(root);
