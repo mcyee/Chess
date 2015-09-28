@@ -15,8 +15,8 @@ import java.util.StringTokenizer;
 
 class Interpreter {
 	
-	private String openingBook; // TODO what are these		two variables that hold the names of the files that hold the openingbook and list of games. 
-	private String gameBook; // TODO ^
+	private String openingBook; // TODO what are these		two variables that hold the names of the files that hold the openingbook and list of games. /what is an opening book
+	private String gameBook; // name of the list of saved games TODO is there a way to make this into a reference instead of a string?
 
 	public Interpreter() {
 		this.openingBook = "prepfile.txt";
@@ -102,6 +102,6 @@ class Interpreter {
 	 * help(s) displays the description for the command s
 	 */
 	public void help(String s) {
-		// TODO command descriptions			// Oh, right. I haven't yet made this help function do stuff yet.
+		// TODO command descriptions
 	}
 }

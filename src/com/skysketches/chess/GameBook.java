@@ -34,8 +34,8 @@ public class GameBook {
 		
 			this.numGames = br.read();
 
-			String input = br.readLine(); // TODO isn't being used for anything?		// Used because... we need to clear one line otherwise it won't work... 
-			int id;																		// it's a one off error that comes in from somewhere. 
+			String input = br.readLine(); // unnecessary line 
+			int id; 
 			String black;
 			String white;
 			String date;
@@ -169,8 +169,8 @@ public class GameBook {
 	/**
 	 * TODO missing?	// I think this is your stuff? I think I was able to create the function... 
 	 */
-	public void createGame(String white, String black, String date) {
+//	public void createGame(String white, String black, String date) {
 		
-	}
+//	}
 
 }

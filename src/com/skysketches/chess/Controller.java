@@ -2,7 +2,7 @@
  * Project: Chess
  * Author: Ming-Cee Yee
  * Created: 2015-09-11
- * Description: 
+ * Description: // TODO
  */
 
 package com.skysketches.chess;
@@ -26,16 +26,15 @@ public class Controller {
 	
 	private String type;
 	private String player;
-	private int numNodes; // TODO shouldn't this be a field of Tree?  ANS: This is used when assigning id's to new nodes that are created. 
-	private Tree root; // TODO what tree is this?	ANS: The Controller is a large interface for dealing with the tree. It holds the tree by the root. 
+//	private int numNodes; // TODO shouldn't this be a field of Tree?  ANS: This is used when assigning id's to new nodes that are created. 
+	private Tree root; // TODO what tree is this?	ANS: The Controller is a large interface for dealing with the tree. It holds the tree by the root.  literally doesn't answer my q
 	private List<Tree> nodeList; // TODO what's the point of this 	ANS: A hacky "map" because the index maps to the pointer of the node. We use these 
 								// indices in order to properly create the tree. If you look at the tree configuration files the indices are used to show 
 								// which nodes are children to which other nodes in the productions similar to: 
 								// https://www.student.cs.uwaterloo.ca/~cs241/wlp4/WLP4.html   (the context free syntax productions) 
 	// list of all nodes added prior to current
 	
-	public Controller(FileInputStream r, FileOutputStream w, String t)
-	{
+	public Controller(FileInputStream r, FileOutputStream w, String t) {
 		this.read = r;
 		this.write = w;
 		this.type = t;
@@ -50,7 +49,7 @@ public class Controller {
 		String desc;
 		String input = "";
 		
-		// choose input source (file or stdin)
+		// choose input source (file or stdin) and read in description
 		if (fromFile) {
 			BufferedReader br = new BufferedReader(new InputStreamReader(read));
 			try{
@@ -67,8 +66,7 @@ public class Controller {
 			}
 		}
 		
-		// TODO what is going on			// So the way the description is read in is kind of like how you enter git commit messages, within quotes. 
-											// so this reads in a quote, keeps going until it sees the second quote and then takes the appropriate substring. 
+		// parse description from initial double quote to next double quote 
 		int i = 0;
 		while (input.charAt(i) != '"') {
 			i++;
@@ -101,7 +99,7 @@ public class Controller {
 	 * buildGame() builds the tree of moves from user input
 	 */
 	public void buildGame() {
-		numNodes = 1;
+//		numNodes = 1;
 		Tree node = new Tree('m', "start", "the start node");
 		nodeList.add(node);
 		root = nodeList.get(0);
@@ -121,7 +119,7 @@ public class Controller {
 				node = new Tree('m', move, "");
 				current.addChild(node);
 				nodeList.add(node);
-				numNodes++;
+//				numNodes++;
 				current = node;
 			}
 			
@@ -143,7 +141,7 @@ public class Controller {
 		try {
 			// get node information and add to tree
 			String temp = br.readLine();
-			numNodes = Integer.parseInt(temp);
+//			numNodes = Integer.parseInt(temp);
 			for (int i = 0; i < numNodes; i++) {
 				nodeType = (char) br.read();
 				nodeName = br.readLine();
@@ -214,7 +212,7 @@ public class Controller {
 		position.push(this.root);
 		Tree current = position.peek();
 
-		Boolean saved = true;
+		Boolean saved = false;
 		char action = '0';
 		char ans = 'n';
 		String next;
@@ -241,7 +239,7 @@ public class Controller {
 							newTree = new Tree('o', next, "");
 							current.addChild(newTree);
 							this.nodeList.add(newTree);
-							this.numNodes++;
+//							this.numNodes++;
 							saved = false;
 							nextStep = newTree;
 						}
@@ -271,32 +269,35 @@ public class Controller {
 														// that should be recorded there from previous use. 
 						System.out.println(current.getDescription());
 						break;
-					case 'a': // TODO add comment		// This is where we append a new description onto the old one. 
-						// TODO why can't these be done on one line?		// Uhh, no reason. 
-						newDescription = inputDescription(false);
-						newDescription = current.getDescription() + newDescription;
+					// Appends a new description onto the old one
+					case 'a':
+						newDescription = current.getDescription() + inputDescription(false);
 						
 						current.setDescription(newDescription);
 						break;
-					case 'r': // TODO add comment		// This is replacing the description with the one that the user enters. 
+					// Replaces the current description with new user input
+					case 'r':
 						newDescription = inputDescription(false);
 						newDescription = scan.next(); // TODO overwriting the line above??
 						current.setDescription(newDescription);
 						break;
-					case 'c': // TODO add comment		// Print the children of the current move. (currently analyzed next moves). 
+					// Prints the children of the current move (currently analyzed next moves)
+					case 'c':
 						current.printChildrenMoves();
 						break;
-					case 's': // TODO add comment		// save the changes into the opening book file. 
+					// Saves the changes into the opening book file. 
+					case 's':
 						System.out.println("This option cannot be undone. "
 						    + "Are you sure you want to save? (y/n): ");
 						ans = scan.next(".").charAt(0);
 						if (ans == 'y') {
 							save();
 							System.out.println("Saved changes.");
+							saved = true;
 						}
-						saved = true; // TODO should be in the if block?? ^		Um, yeah, it should, I'm not sure why this is outside the if block. 
 						break;
-					case 'q': // TODO add comment		This should cause a return statement that quits the program. 
+					// Quits the program
+					case 'q':
 						// TODO this doesn't actually do anything except display a message		// so long as the return statement works... this shoudl work. 
 						if (!saved) {
 							System.out.println("There are unsaved changes. "
@@ -331,6 +332,7 @@ public class Controller {
 		} while (true); // TODO is there a better way to control this loop?		// Probably, I'm not sure why I chose a do while loop. 
 																				// Either way I want to use a if/else chained thing instead 
 																				// to allow for more flexible commands. 
+		// perhaps while (scan.hasNext())
 	}
 	
 	/**
